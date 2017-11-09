@@ -9,6 +9,8 @@
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
 
+tasks.withType(AbstractCompile)*.options*.encoding = 'UTF-8'
+
 buildscript {
     repositories { jcenter() }
     dependencies {
@@ -34,7 +36,7 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
-    
+
     // サーブレットAPI
     providedCompile 'javax.servlet:javax.servlet-api:3.+'
     // DBライブラリ
