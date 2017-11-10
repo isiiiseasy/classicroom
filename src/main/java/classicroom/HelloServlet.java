@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
 @WebServlet(name = "HelloServlet", urlPatterns = {"hello"}, loadOnStartup = 1)
 public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -22,4 +24,4 @@ public class HelloServlet extends HttpServlet {
         request.setAttribute("user", name);
         request.getRequestDispatcher("response.jsp").forward(request, response);
     }
-}
+    }
