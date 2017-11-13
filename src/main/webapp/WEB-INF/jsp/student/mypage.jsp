@@ -7,5 +7,6 @@
 <body>
 	<h1>ようこそ、${ userID } さん</h1>
 	<p>今日も頑張ろう！</p>
+	<a href="<%=request.getContextPath() %>/logout">ログアウト</a>
 </body>
 </html>
