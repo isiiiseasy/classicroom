@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("loginpage.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/loginpage.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -22,10 +22,10 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		if (userID == null || userID.equals("") || password == null || password.equals("")) {
 			request.setAttribute("warning", "ユーザーIDとパスワードを入力してください");
-			request.getRequestDispatcher("loginpage.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/loginpage.jsp").forward(request, response);
 		} else if (!auth(userID, password)) {
 			request.setAttribute("warning", "ユーザーIDかパスワードが間違っています");
-			request.getRequestDispatcher("loginpage.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/loginpage.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession(false);
 			if(session!=null) {

@@ -14,9 +14,9 @@ public class MyPageServlet extends HttpServlet {
 			throws ServletException, IOException {
 		Object userRank = request.getSession(false).getAttribute("userRank");
 		if (userRank.equals("student")) {
-			request.getRequestDispatcher("student/mypage.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/student/mypage.jsp").forward(request, response);
 		} else if (userRank.equals("teacher")) {
-			request.getRequestDispatcher("teacher/mypage.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/teacher/mypage.jsp").forward(request, response);
 		} else {
 			response.sendError(HttpServletResponse.SC_FORBIDDEN);
 		}
