@@ -40,7 +40,7 @@ public class PushServlet extends HttpServlet {
                 contexts.clear();
             }
             out.println("ok");
-        } finally {            
+        } finally {
             out.close();
         }
     }
