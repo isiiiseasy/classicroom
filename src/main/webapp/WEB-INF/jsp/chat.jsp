@@ -5,7 +5,7 @@
     <head>
         <title>チャット</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="resources/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript">
             $(function(){
                 connect();
