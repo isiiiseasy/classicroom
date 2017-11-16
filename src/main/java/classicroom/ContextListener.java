@@ -13,5 +13,8 @@ public class ContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent ev) {
         DataBase.CreateDataBase();
+        //DataBase.HelloTableList();
+        DataBase.SampleDate();
+        //DataBase.print();
     }
 }

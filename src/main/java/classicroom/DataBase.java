@@ -1,10 +1,13 @@
 package classicroom;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.sql.Statement;
 
 public class DataBase{
 
@@ -42,54 +45,54 @@ public class DataBase{
 
 		String sql;
 
-		sql = "CREATE TABLE accounts(user_id INT,pass VARCHAR(255) NOT NUL,user_name VARCHAR(255) NOT NUL,teacher_flg BOOLEAN NOT NUL,icon VARCHAR(255),PRIMARY KEY(user_id))";
+		sql = "CREATE TABLE accounts(user_id INT,pass VARCHAR(255) NOT NULL,user_name VARCHAR(255) NOT NULL,teacher_flg BOOLEAN NOT NULL,icon VARCHAR(255),PRIMARY KEY(user_id))";
 
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
-		sql = "CREATE TABLE subjects(subject_id INT,subject_name VARCHAR(255) NOT NUL,PRIMARY KEY(subject_id))";
+		sql = "CREATE TABLE subjects(subject_id INT,subject_name VARCHAR(255) NOT NULL,PRIMARY KEY(subject_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE lessons(lesson_id INT,subject_id INT NOT NUL,times INT NOT NUL,lesson_date DATE NOT NUL,PRIMARY KEY(lesson_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
+		sql = "CREATE TABLE lessons(lesson_id INT,subject_id INT NOT NULL,times INT NOT NULL,lesson_date DATE NOT NULL,PRIMARY KEY(lesson_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE tests(test_id INT,test_name VARCHAR(255) NOT NUL,test_date DATE NOT NUL,end_flg BOOLEAN NOT NUL,subject_id INT NOT NUL,PRIMARY KEY(test_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
+		sql = "CREATE TABLE tests(test_id INT,test_name VARCHAR(255) NOT NULL,test_date DATE NOT NULL,end_flg BOOLEAN NOT NULL,subject_id INT NOT NULL,PRIMARY KEY(test_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE chapters(chapter_id INT,chapter_name VARCHAR(255) NOT NUL,subject_id INT NOT NUL,PRIMARY KEY(chapter_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
+		sql = "CREATE TABLE chapters(chapter_id INT,chapter_name VARCHAR(255) NOT NULL,subject_id INT NOT NULL,PRIMARY KEY(chapter_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE sections(section_id INT,section_name VARCHAR(255) NOT NUL,chapter_id INT NOT NUL,PRIMARY KEY(section_id),FOREIGN KEY (chapter_id)REFERENCES chapters(chapter_id))";
+		sql = "CREATE TABLE sections(section_id INT,section_name VARCHAR(255) NOT NULL,chapter_id INT NOT NULL,PRIMARY KEY(section_id),FOREIGN KEY (chapter_id)REFERENCES chapters(chapter_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE progress(content_id INT,user_id INT,intelligibility INT NOT NUL,working_date DATE NOT NUL,PRIMARY KEY(content_id,user_id))";
+		sql = "CREATE TABLE progress(section_id INT,user_id INT,intelligibility INT NOT NULL,working_date DATE NOT NULL,PRIMARY KEY(section_id,user_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE results(test_id INT,test_id INT,point INT NOT NUL,PRIMARY KEY(test_id,test_id))";
+		sql = "CREATE TABLE results(test_id INT,user_id INT,point INT NOT NULL,PRIMARY KEY(test_id,user_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE attendances(lesson_id INT,user_id INT,attendance_situation INT NOT NUL,class_attitude INT NOT NUL,note VARCHAR(255),PRIMARY KEY(lesson_id,user_id))";
+		sql = "CREATE TABLE attendances(lesson_id INT,user_id INT,attendance_situation INT NOT NULL,class_attitude INT NOT NULL,note VARCHAR(255),PRIMARY KEY(lesson_id,user_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
@@ -101,7 +104,149 @@ public class DataBase{
 		}
 	}
 
+	public static void HelloTableList(){
+	       try {
+	    	   Connection con = null;
+	   		   con = createConnection();
+
+	           Statement stmt = con.createStatement();
+	           DatabaseMetaData dmd = con.getMetaData();
+	           ResultSet rs = null;
+	           String types[] = { "TABLE" };
+	           rs = dmd.getTables(null, null,"%", types);
+	           try {
+	               while(rs.next()){
+	                   System.out.println(rs.getString("TABLE_TYPE") + ":");
+	                   System.out.println(rs.getString("TABLE_NAME") + "\n");
+	               }
+	           } finally {
+	               rs.close();
+	           }
+	           stmt.close();
+	           con.close();
+	       } catch (Exception e) {
+		           e.printStackTrace();
+		       }
+	}
+
+
+
+	public static void SampleDate() {
+		try {
+		Connection con = null;
+		con = createConnection();
+
+		Statement statement=con.createStatement();
+		statement.addBatch("INSERT INTO accounts VALUES (1674400,'pass','大原 太郎',false,'',)");
+	    statement.addBatch("INSERT INTO accounts VALUES (1674401,'ssap','大原 花子',false,'',)");
+	    statement.addBatch("INSERT INTO accounts VALUES (9999999,'teacher','大原 教師郎',true,'',)");
+
+	    statement.addBatch("INSERT INTO subjects VALUES (01,'Java')");
+	    statement.addBatch("INSERT INTO subjects VALUES (02,'C言語')");
+	    
+	    statement.addBatch("INSERT INTO lessons VALUES (001,01,1,to_date('2017/04/05','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO lessons VALUES (002,01,2,to_date('2017/04/07','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO lessons VALUES (003,02,1,to_date('2017/04/12','YYYY/MM/DD'))");
+
+	    statement.addBatch("INSERT INTO tests VALUES (001,'第1回Java効果測定',to_date('2017/04/20','YYYY/MM/DD'),true,01)");
+	    statement.addBatch("INSERT INTO tests VALUES (002,'第1回C言語効果測定',to_date('2017/04/22','YYYY/MM/DD'),false,02)");
+
+	    statement.addBatch("INSERT INTO chapters VALUES (101,'J1章',01)");
+	    statement.addBatch("INSERT INTO chapters VALUES (102,'J2章',01)");
+	    statement.addBatch("INSERT INTO chapters VALUES (201,'C1章',02)");
+
+	    statement.addBatch("INSERT INTO sections VALUES (1101,'J1章1項目',101)");
+	    statement.addBatch("INSERT INTO sections VALUES (1102,'J1章2項目',101)");
+	    statement.addBatch("INSERT INTO sections VALUES (1201,'J2章1項目',101)");
+	    statement.addBatch("INSERT INTO sections VALUES (2101,'C1章1項目',102)");
+
+	    statement.addBatch("INSERT INTO progress VALUES (1101,1674400,80,to_date('2017/04/06','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO progress VALUES (1102,1674400,70,to_date('2017/04/08','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO progress VALUES (2101,1674400,100,to_date('2017/04/15','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO progress VALUES (1101,1674401,30,to_date('2017/04/06','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO progress VALUES (1102,1674401,40,to_date('2017/04/10','YYYY/MM/DD'))");
+
+	    statement.addBatch("INSERT INTO results VALUES (001,1674400,98)");
+	    statement.addBatch("INSERT INTO results VALUES (001,1674401,100)");
+	    statement.addBatch("INSERT INTO results VALUES (002,1674400,80)");
+	    statement.addBatch("INSERT INTO results VALUES (002,1674401,50)");
+
+	    statement.addBatch("INSERT INTO attendances VALUES (003,1674401,2,50,'寝坊')");
+
+
+	    statement.executeBatch();
+
+		statement.close();
+		con = null;
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public static void print(){
+		System.out.println("printstart");
+		try {
+			Connection con = null;
+	        con = createConnection();
+
+			String sql = "SELECT * FROM accounts";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()) {
+		        int user_id = rs.getInt("user_id");
+		        String pass = rs.getString("pass");
+		        String user_name = rs.getString("user_name");
+		        boolean teacher_flg = rs.getBoolean("teacher_flg");
+		        String icon = rs.getString("icon");
+		        System.out.println(user_id+","+pass+","+user_name+","+teacher_flg+","+icon+",");
+		      }
+
+			con = null;
+	        con = createConnection();
+
+			sql = "SELECT * FROM tests";
+
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while(rs.next()) {
+		        int test_id = rs.getInt("test_id");
+		        String test_name = rs.getString("test_name");
+		        Date test_date = rs.getDate("test_date");
+		        boolean end_flg = rs.getBoolean("end_flg");
+		        int subject_id = rs.getInt("subject_id");
+		        System.out.println(test_id+","+test_name+","+test_date+","+end_flg+","+subject_id+",");
+		      }
+
+			sql = "SELECT * FROM attendances";
+
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while(rs.next()){
+		        int lesson_id = rs.getInt("lesson_id");
+		        int user_id = rs.getInt("user_id");
+		        int attendance_situation = rs.getInt("attendance_situation");
+		        int class_attitude = rs.getInt("class_attitude");
+		        String note = rs.getString("note");
+		        System.out.println(lesson_id+","+user_id+","+attendance_situation+","+class_attitude+","+note);
+		      }
+
+			stmt.close();
+            con = null;
+
+            System.out.println("printok");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }
+
+
+
+
 //CREATE TABLE ()     INT   VARCHAR(255)   BOOLEAN   DATE    ,PRIMARY KEY()  ,FOREIGN KEY (子カラム名)REFERENCES 親テーブル名(親カラム名)    NOT NULL
 /*テンプレ
 Connection con = null;
