@@ -12,9 +12,9 @@ public class ContextListener implements ServletContextListener {
     }
 
     public void contextInitialized(ServletContextEvent ev) {
-        DataBase.CreateDataBase();
-        //DataBase.HelloTableList();
-        DataBase.SampleDate();
-        //DataBase.print();
+        DataBase.CreateDataBase();	//テーブル作成
+        //DataBase.HelloTableList();	//テーブル一覧表示
+        DataBase.SampleDate();			//サンプルデータ挿入
+        //DataBase.print();				//行表示
     }
 }
