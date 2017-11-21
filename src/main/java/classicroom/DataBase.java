@@ -103,7 +103,6 @@ public class DataBase{
 	public void helloTableList(){
 	       try {
 
-	           Statement stmt = con.createStatement();
 	           DatabaseMetaData dmd = con.getMetaData();
 	           ResultSet rs = null;
 	           String types[] = { "TABLE" };
@@ -182,12 +181,12 @@ public class DataBase{
 			ResultSet rs = stmt.executeQuery();
 
 			while(rs.next()) {
-		        String user_id = rs.getString("user_id");
+		        String userId = rs.getString("user_id");
 		        String pass = rs.getString("pass");
-		        String user_name = rs.getString("user_name");
-		        boolean teacher_flg = rs.getBoolean("teacher_flg");
+		        String userName = rs.getString("user_name");
+		        boolean teacherFlg = rs.getBoolean("teacher_flg");
 		        String icon = rs.getString("icon");
-		        System.out.println(user_id+","+pass+","+user_name+","+teacher_flg+","+icon+",");
+		        System.out.println(userId+","+pass+","+userName+","+teacherFlg+","+icon+",");
 		      }
 
 			sql = "SELECT * FROM tests";
@@ -196,12 +195,12 @@ public class DataBase{
 			rs = stmt.executeQuery();
 
 			while(rs.next()) {
-		        int test_id = rs.getInt("test_id");
-		        String test_name = rs.getString("test_name");
-		        Date test_date = rs.getDate("test_date");
-		        boolean end_flg = rs.getBoolean("end_flg");
-		        int subject_id = rs.getInt("subject_id");
-		        System.out.println(test_id+","+test_name+","+test_date+","+end_flg+","+subject_id+",");
+		        int testId = rs.getInt("test_id");
+		        String testName = rs.getString("test_name");
+		        Date testDate = rs.getDate("test_date");
+		        boolean endFlg = rs.getBoolean("end_flg");
+		        int subjectId = rs.getInt("subject_id");
+		        System.out.println(testId+","+testName+","+testDate+","+endFlg+","+subjectId+",");
 		      }
 
 			sql = "SELECT * FROM attendances";
@@ -210,12 +209,12 @@ public class DataBase{
 			rs = stmt.executeQuery();
 
 			while(rs.next()){
-		        int lesson_id = rs.getInt("lesson_id");
-		        int user_id = rs.getInt("user_id");
-		        int attendance_situation = rs.getInt("attendance_situation");
-		        int class_attitude = rs.getInt("class_attitude");
+		        int lessonId = rs.getInt("lesson_id");
+		        int userId = rs.getInt("user_id");
+		        int attendanceSituation = rs.getInt("attendance_situation");
+		        int classAttitude = rs.getInt("class_attitude");
 		        String note = rs.getString("note");
-		        System.out.println(lesson_id+","+user_id+","+attendance_situation+","+class_attitude+","+note);
+		        System.out.println(lessonId+","+userId+","+attendanceSituation+","+classAttitude+","+note);
 		      }
 
             System.out.println("printok");
@@ -225,21 +224,17 @@ public class DataBase{
 	}
 
 
-	public boolean useradd(String userID,String password,String userName,String teacherF) {
+	public boolean useradd(String userId,String pass,String userName,String teacherFlg) {
 		boolean flg = false;
-		String user_id = userID;
-		String pass = password;
-		String user_name = userName;
-		boolean teacher_flg = Boolean.valueOf(teacherF);
 
 		try {
 			String sql = "INSERT INTO accounts (user_id,pass,user_name,teacher_flg) VALUES (?,?,?,?)";
 
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1,user_id);
+			stmt.setString(1,userId);
 			stmt.setString(2,pass);
-			stmt.setString(3,user_name);
-			stmt.setBoolean(4,teacher_flg);
+			stmt.setString(3,userName);
+			stmt.setBoolean(4,Boolean.valueOf(teacherFlg));
 			stmt.executeUpdate();
 
 			flg = true;
@@ -250,29 +245,29 @@ public class DataBase{
 		return flg;
 	}
 
-	public boolean auth(String User_ID,String Pass) {
+	public boolean auth(String userId,String pass) {
 		boolean flg = false;
 
 		try {
 			String sql = "SELECT user_id FROM accounts";
 
 			PreparedStatement stmt = con.prepareStatement(sql);
-			ResultSet rs_id = stmt.executeQuery();
+			ResultSet rsId = stmt.executeQuery();
 
-			while(rs_id.next()) {
+			while(rsId.next()) {
 
-				if(rs_id.getString(1).equals(User_ID)) {
+				if(rsId.getString(1).equals(userId)) {
 
 					sql = "SELECT pass FROM accounts WHERE user_id = ?";
 
 					stmt = con.prepareStatement(sql);
-					stmt.setString(1,User_ID);
+					stmt.setString(1,userId);
 
-					ResultSet rs_pass = stmt.executeQuery();
+					ResultSet rsPass = stmt.executeQuery();
 
-					while(rs_pass.next()) {
+					while(rsPass.next()) {
 
-						if(rs_pass.getString(1).equals(Pass)) {
+						if(rsPass.getString(1).equals(pass)) {
 
 							flg = true;
 
@@ -290,24 +285,45 @@ public class DataBase{
 		return flg;
 	}
 
-	public boolean getRank(String User_ID) {
-		boolean teacher_flg = false;
+	public boolean getRank(String userId) {
+		boolean teacherFlg = false;
 
 		try {
 			String sql = "SELECT teacher_flg FROM accounts WHERE user_id = ?";
 
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1,User_ID);
+			stmt.setString(1,userId);
 
 			ResultSet rs = stmt.executeQuery();
 
 			rs.next();
-			teacher_flg = rs.getBoolean(1);
+			teacherFlg = rs.getBoolean(1);
 
 		}catch(Exception e) {
 			System.out.println(e);
 		}
-		return teacher_flg;
+		return teacherFlg;
+	}
+
+	public String getUserName(String userId) {
+		String userName = "";
+
+		try {
+			String sql = "SELECT user_name FROM accounts WHERE user_id = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,userId);
+
+			ResultSet rs = stmt.executeQuery();
+
+			rs.next();
+			userName = rs.getString(1);
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return userName;
 	}
 
 }

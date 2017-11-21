@@ -12,11 +12,11 @@ public class ContextListener implements ServletContextListener {
     }
 
     public void contextInitialized(ServletContextEvent ev) {
-    	DataBase DB = new DataBase();
+    	DataBase db = new DataBase();
 
-        DB.createDataBase();	//テーブル作成
-        DB.helloTableList();	//テーブル一覧表示
-        DB.sampleDate();		//サンプルデータ挿入
-        DB.print();				//行表示
+        db.createDataBase();	//テーブル作成
+        db.helloTableList();	//テーブル一覧表示
+        db.sampleDate();		//サンプルデータ挿入
+        db.print();				//行表示
     }
 }

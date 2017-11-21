@@ -18,14 +18,14 @@ public class Useradd extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException{
 
-    	String userID = request.getParameter("userID");
-    	String password = request.getParameter("password");
-		String user_name = request.getParameter("userName");
-		String teacher_flg = request.getParameter("teacherF");
+    	String userId = request.getParameter("userId");
+    	String pass = request.getParameter("pass");
+		String userName = request.getParameter("userName");
+		String teacherFlg = request.getParameter("teacherFlg");
 
-		DataBase DB = new DataBase();
+		DataBase db = new DataBase();
 
-		if(DB.useradd(userID, password,user_name,teacher_flg)) {
+		if(db.useradd(userId, pass,userName,teacherFlg)) {
 			request.setAttribute("message", "登録完了");
 		}else {
 			request.setAttribute("message", "登録失敗");

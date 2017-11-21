@@ -18,14 +18,14 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		DataBase DB = new DataBase();
+		DataBase db = new DataBase();
 
-		String userID = request.getParameter("userID");
+		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
-		if (userID == null || userID.equals("") || password == null || password.equals("")) {
+		if (userId == null || userId.equals("") || password == null || password.equals("")) {
 			request.setAttribute("warning", "ユーザーIDとパスワードを入力してください");
 			request.getRequestDispatcher("/WEB-INF/jsp/loginpage.jsp").forward(request, response);
-		} else if (!(DB.auth(userID, password))) {
+		} else if (!(db.auth(userId, password))) {
 			request.setAttribute("warning", "ユーザーIDかパスワードが間違っています");
 			request.getRequestDispatcher("/WEB-INF/jsp/loginpage.jsp").forward(request, response);
 		} else {
@@ -34,9 +34,10 @@ public class LoginServlet extends HttpServlet {
 				session.invalidate();
 			}
 			session = request.getSession(true);
-			session.setAttribute("userID", userID);
+			session.setAttribute("userId", userId);
+			session.setAttribute("userName", db.getUserName(userId));
 
-			if(DB.getRank(userID)) {
+			if(db.getRank(userId)) {
 				session.setAttribute("userRank","teacher");
 			}else {
 				session.setAttribute("userRank","student");
