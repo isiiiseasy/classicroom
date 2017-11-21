@@ -224,7 +224,7 @@ public class DataBase{
 	}
 
 
-	public boolean useradd(String userId,String pass,String userName,String teacherFlg) {
+	public boolean useradd(String userId,String password,String userName,String teacherFlg) {
 		boolean flg = false;
 
 		try {
@@ -232,7 +232,7 @@ public class DataBase{
 
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1,userId);
-			stmt.setString(2,pass);
+			stmt.setString(2,password);
 			stmt.setString(3,userName);
 			stmt.setBoolean(4,Boolean.valueOf(teacherFlg));
 			stmt.executeUpdate();
@@ -245,7 +245,7 @@ public class DataBase{
 		return flg;
 	}
 
-	public boolean auth(String userId,String pass) {
+	public boolean auth(String userId,String password) {
 		boolean flg = false;
 
 		try {
@@ -267,7 +267,7 @@ public class DataBase{
 
 					while(rsPass.next()) {
 
-						if(rsPass.getString(1).equals(pass)) {
+						if(rsPass.getString(1).equals(password)) {
 
 							flg = true;
 

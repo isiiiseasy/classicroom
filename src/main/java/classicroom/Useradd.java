@@ -19,13 +19,13 @@ public class Useradd extends HttpServlet{
         throws ServletException, IOException{
 
     	String userId = request.getParameter("userId");
-    	String pass = request.getParameter("pass");
+    	String password = request.getParameter("password");
 		String userName = request.getParameter("userName");
 		String teacherFlg = request.getParameter("teacherFlg");
 
 		DataBase db = new DataBase();
 
-		if(db.useradd(userId, pass,userName,teacherFlg)) {
+		if(db.useradd(userId, password,userName,teacherFlg)) {
 			request.setAttribute("message", "登録完了");
 		}else {
 			request.setAttribute("message", "登録失敗");

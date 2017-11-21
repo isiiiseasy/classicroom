@@ -32,7 +32,7 @@ public class LoginFilter implements Filter{
 		HttpServletResponse hres = (HttpServletResponse)response;
 		HttpSession session = hreq.getSession();
 		String path = hreq.getRequestURI().substring(hreq.getContextPath().length()).replaceAll("[/]+$", "");
-        boolean isLoggedIn = (session != null && session.getAttribute("userID") != null);
+        boolean isLoggedIn = (session != null && session.getAttribute("userId") != null);
         boolean isPublic = PUBLIC_PATHS.contains(path);
 
         if (isLoggedIn || isPublic) {
