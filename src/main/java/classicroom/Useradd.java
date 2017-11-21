@@ -31,7 +31,7 @@ public class Useradd extends HttpServlet{
 			request.setAttribute("message", "登録失敗");
 		}
 
-		request.getRequestDispatcher("/WEB-INF/useradd.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/useradd.jsp").forward(request, response);
 
     }
 }

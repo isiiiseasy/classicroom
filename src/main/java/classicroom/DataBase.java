@@ -95,8 +95,6 @@ public class DataBase{
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
-		stmt.close();
-		con = null;
 		}catch(Exception e) {
 			System.out.println(e);
 		}
@@ -118,8 +116,6 @@ public class DataBase{
 	           } finally {
 	               rs.close();
 	           }
-	           stmt.close();
-	           con.close();
 	       } catch (Exception e) {
 		           e.printStackTrace();
 		       }
@@ -172,8 +168,6 @@ public class DataBase{
 
 	    statement.executeBatch();
 
-		statement.close();
-		con = null;
 		}catch(SQLException e) {
 			System.out.println(e);
 		}
@@ -223,9 +217,6 @@ public class DataBase{
 		        String note = rs.getString("note");
 		        System.out.println(lesson_id+","+user_id+","+attendance_situation+","+class_attitude+","+note);
 		      }
-
-			stmt.close();
-            con = null;
 
             System.out.println("printok");
 		} catch (SQLException e) {
@@ -293,9 +284,6 @@ public class DataBase{
 
 			}
 
-			stmt.close();
-			con = null;
-
 		}catch(SQLException e) {
 			System.out.println(e);
 		}
@@ -313,7 +301,12 @@ public class DataBase{
 
 			ResultSet rs = stmt.executeQuery();
 
+			System.out.println(rs);
+			rs.next();
+
 			teacher_flg = rs.getBoolean(1);
+
+			System.out.println(teacher_flg);
 
 		}catch(Exception e) {
 			System.out.println(e);
