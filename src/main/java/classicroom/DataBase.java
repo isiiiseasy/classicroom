@@ -301,12 +301,8 @@ public class DataBase{
 
 			ResultSet rs = stmt.executeQuery();
 
-			System.out.println(rs);
 			rs.next();
-
 			teacher_flg = rs.getBoolean(1);
-
-			System.out.println(teacher_flg);
 
 		}catch(Exception e) {
 			System.out.println(e);
