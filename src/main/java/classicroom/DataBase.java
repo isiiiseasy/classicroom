@@ -11,22 +11,22 @@ import java.sql.Statement;
 
 public class DataBase{
 
-	private final static String DRIVER_URL = "jdbc:h2:./test";
-	private final static String DRIVER_NAME = "org.h2.Driver";
-	private final static String USER_NAME = "sa";
-	private final static String PASSWORD = "";
+	Connection con = null;
 
-	public static Connection createConnection() {
+	public DataBase() {
 		try {
+			final String DRIVER_URL = "jdbc:h2:./test";
+			final String DRIVER_NAME = "org.h2.Driver";
+			final String USER_NAME = "sa";
+			final String PASSWORD = "";
+
 			Class.forName(DRIVER_NAME);
-	        Connection con=DriverManager.getConnection(DRIVER_URL,USER_NAME,PASSWORD);
-	        return con;
+	        con = DriverManager.getConnection(DRIVER_URL,USER_NAME,PASSWORD);
 	        }catch(ClassNotFoundException e){
 	            System.out.println("Can't Find H2 Driver.\n");
 	        }catch(SQLException e){
 	            System.out.println("Connection Error.\n");
 	        }
-	            return null;
 		}
 
 	public static void closeConnection(Connection con){
@@ -36,16 +36,14 @@ public class DataBase{
     }
 
 
-	public static void CreateDataBase() {
+	public void createDataBase() {
 
 
 		try {
-		Connection con = null;
-		con = createConnection();
 
 		String sql;
 
-		sql = "CREATE TABLE accounts(user_id INT,pass VARCHAR(255) NOT NULL,user_name VARCHAR(255) NOT NULL,teacher_flg BOOLEAN NOT NULL,icon VARCHAR(255),PRIMARY KEY(user_id))";
+		sql = "CREATE TABLE accounts(user_id VARCHAR(255),pass VARCHAR(255) NOT NULL,user_name VARCHAR(255) NOT NULL,teacher_flg BOOLEAN NOT NULL,icon VARCHAR(255),PRIMARY KEY(user_id))";
 
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
@@ -104,10 +102,8 @@ public class DataBase{
 		}
 	}
 
-	public static void HelloTableList(){
+	public void helloTableList(){
 	       try {
-	    	   Connection con = null;
-	   		   con = createConnection();
 
 	           Statement stmt = con.createStatement();
 	           DatabaseMetaData dmd = con.getMetaData();
@@ -131,19 +127,16 @@ public class DataBase{
 
 
 
-	public static void SampleDate() {
+	public void sampleDate() {
 		try {
-		Connection con = null;
-		con = createConnection();
-
 		Statement statement=con.createStatement();
-		statement.addBatch("INSERT INTO accounts VALUES (1674400,'pass','大原 太郎',false,'',)");
-	    statement.addBatch("INSERT INTO accounts VALUES (1674401,'ssap','大原 花子',false,'',)");
-	    statement.addBatch("INSERT INTO accounts VALUES (9999999,'teacher','大原 教師郎',true,'',)");
+		statement.addBatch("INSERT INTO accounts VALUES ('student','student','大原 太郎',false,'',)");
+	    statement.addBatch("INSERT INTO accounts VALUES ('1674401','ssap','大原 花子',false,'',)");
+	    statement.addBatch("INSERT INTO accounts VALUES ('teacher','teacher','大原 教師郎',true,'',)");
 
 	    statement.addBatch("INSERT INTO subjects VALUES (01,'Java')");
 	    statement.addBatch("INSERT INTO subjects VALUES (02,'C言語')");
-	    
+
 	    statement.addBatch("INSERT INTO lessons VALUES (001,01,1,to_date('2017/04/05','YYYY/MM/DD'))");
 	    statement.addBatch("INSERT INTO lessons VALUES (002,01,2,to_date('2017/04/07','YYYY/MM/DD'))");
 	    statement.addBatch("INSERT INTO lessons VALUES (003,02,1,to_date('2017/04/12','YYYY/MM/DD'))");
@@ -171,40 +164,37 @@ public class DataBase{
 	    statement.addBatch("INSERT INTO results VALUES (002,1674400,80)");
 	    statement.addBatch("INSERT INTO results VALUES (002,1674401,50)");
 
+	    //statement.addBatch("DELETE FROM attendances");
 	    statement.addBatch("INSERT INTO attendances VALUES (003,1674401,2,50,'寝坊')");
+
+
 
 
 	    statement.executeBatch();
 
 		statement.close();
 		con = null;
-		}catch(Exception e) {
+		}catch(SQLException e) {
 			System.out.println(e);
 		}
 	}
 
-	public static void print(){
+	public void print(){
 		System.out.println("printstart");
 		try {
-			Connection con = null;
-	        con = createConnection();
-
 			String sql = "SELECT * FROM accounts";
 
 			PreparedStatement stmt = con.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 
 			while(rs.next()) {
-		        int user_id = rs.getInt("user_id");
+		        String user_id = rs.getString("user_id");
 		        String pass = rs.getString("pass");
 		        String user_name = rs.getString("user_name");
 		        boolean teacher_flg = rs.getBoolean("teacher_flg");
 		        String icon = rs.getString("icon");
 		        System.out.println(user_id+","+pass+","+user_name+","+teacher_flg+","+icon+",");
 		      }
-
-			con = null;
-	        con = createConnection();
 
 			sql = "SELECT * FROM tests";
 
@@ -238,10 +228,99 @@ public class DataBase{
             con = null;
 
             System.out.println("printok");
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			System.out.println(e);
 		}
 	}
+
+
+	public boolean useradd(String userID,String password,String userName,String teacherF) {
+		boolean flg = false;
+		String user_id = userID;
+		String pass = password;
+		String user_name = userName;
+		boolean teacher_flg = Boolean.valueOf(teacherF);
+
+		try {
+			String sql = "INSERT INTO accounts (user_id,pass,user_name,teacher_flg) VALUES (?,?,?,?)";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,user_id);
+			stmt.setString(2,pass);
+			stmt.setString(3,user_name);
+			stmt.setBoolean(4,teacher_flg);
+			stmt.executeUpdate();
+
+			flg = true;
+		}catch(SQLException e) {
+			System.out.println(e);
+		}
+
+		return flg;
+	}
+
+	public boolean auth(String User_ID,String Pass) {
+		boolean flg = false;
+
+		try {
+			String sql = "SELECT user_id FROM accounts";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			ResultSet rs_id = stmt.executeQuery();
+
+			while(rs_id.next()) {
+
+				if(rs_id.getString(1).equals(User_ID)) {
+
+					sql = "SELECT pass FROM accounts WHERE user_id = ?";
+
+					stmt = con.prepareStatement(sql);
+					stmt.setString(1,User_ID);
+
+					ResultSet rs_pass = stmt.executeQuery();
+
+					while(rs_pass.next()) {
+
+						if(rs_pass.getString(1).equals(Pass)) {
+
+							flg = true;
+
+						}
+
+					}
+
+				}
+
+			}
+
+			stmt.close();
+			con = null;
+
+		}catch(SQLException e) {
+			System.out.println(e);
+		}
+		return flg;
+	}
+
+	public boolean getRank(String User_ID) {
+		boolean teacher_flg = false;
+
+		try {
+			String sql = "SELECT teacher_flg FROM accounts WHERE user_id = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,User_ID);
+
+			ResultSet rs = stmt.executeQuery();
+
+			teacher_flg = rs.getBoolean(1);
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return teacher_flg;
+	}
+
 }
 
 

@@ -18,12 +18,14 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		DataBase DB = new DataBase();
+
 		String userID = request.getParameter("userID");
 		String password = request.getParameter("password");
 		if (userID == null || userID.equals("") || password == null || password.equals("")) {
 			request.setAttribute("warning", "ユーザーIDとパスワードを入力してください");
 			request.getRequestDispatcher("/WEB-INF/jsp/loginpage.jsp").forward(request, response);
-		} else if (!auth(userID, password)) {
+		} else if (!(DB.auth(userID, password))) {
 			request.setAttribute("warning", "ユーザーIDかパスワードが間違っています");
 			request.getRequestDispatcher("/WEB-INF/jsp/loginpage.jsp").forward(request, response);
 		} else {
@@ -33,23 +35,13 @@ public class LoginServlet extends HttpServlet {
 			}
 			session = request.getSession(true);
 			session.setAttribute("userID", userID);
-			session.setAttribute("userRank", getRank(userID));
+
+			if(DB.getRank(userID)) {
+				session.setAttribute("userRank","teacher");
+			}else {
+				session.setAttribute("userRank","student");
+			}
 			response.sendRedirect("mypage");
-		}
-	}
-
-	protected boolean auth(String userID, String password) {
-		return userID.equals("student") && password.equals("student")
-				|| userID.equals("teacher") && password.equals("teacher");
-	}
-
-	protected String getRank(String userID) {
-		if(userID.equals("student")) {
-			return "student";
-		}else if(userID.equals("teacher")) {
-			return "teacher";
-		}else {
-			return "";
 		}
 	}
 }
