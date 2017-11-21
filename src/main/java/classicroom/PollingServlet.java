@@ -19,7 +19,6 @@ public class PollingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	request.getRequestDispatcher("/WEB-INF/jsp/chat.jsp").forward(request, response);
 
         ServletContext servletContext = request.getServletContext();
         List<AsyncContext> contexts = (List<AsyncContext>)servletContext.getAttribute(CONTEXT_NAME);
@@ -27,6 +26,7 @@ public class PollingServlet extends HttpServlet {
             contexts = new ArrayList<AsyncContext> ();
             servletContext.setAttribute(CONTEXT_NAME, contexts);
         }
+
 
         final AsyncContext ac = request.startAsync();
         contexts.add(ac);

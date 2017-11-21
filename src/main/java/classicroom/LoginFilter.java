@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(filterName="LoginFilter",urlPatterns="/*")
+@WebFilter(filterName="LoginFilter",urlPatterns="/*",asyncSupported=true)
 public class LoginFilter implements Filter{
 
 	private static final HashSet<String> PUBLIC_PATHS = new HashSet<String>(Arrays.asList("","/login"));

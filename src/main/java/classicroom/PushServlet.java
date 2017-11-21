@@ -2,6 +2,8 @@ package classicroom;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.AsyncContext;
@@ -22,7 +24,18 @@ public class PushServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             request.setCharacterEncoding("utf-8");
-            String text = request.getParameter("text");
+            String textonly = request.getParameter("text");
+
+            Calendar date = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("  yyyy/MM/dd HH:mm:ss  ");
+            String dateonly = (sdf.format(date.getTime()));
+            String username = (String) request.getSession(false).getAttribute("userID");
+            StringBuffer buf = new StringBuffer();
+            buf.append(username);
+            buf.append(dateonly);
+            buf.append(textonly);
+            String text = buf.toString();
+
             ServletContext servletContext = request.getServletContext();
             List<AsyncContext> contexts = (List<AsyncContext>) servletContext.getAttribute(PollingServlet.CONTEXT_NAME);
             if(contexts != null){
