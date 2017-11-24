@@ -5,71 +5,104 @@
     <meta charset="utf-8">
     <title>svgによるグラフ</title>
     <style>
-        #graph {
+        svg {
             border-style: double;
             border-radius: 2px;
             height: 200;
             width: 300;
+
         }
-        .my-bar{
-            fill:#FF0000;
-            fill-opacity:0.8;
+
+        .my-bar {
+            fill: #FF0000;
+            fill-opacity: 0.8;
         }
     </style>
 </head>
 
 <body>
     <script src="d3.min.js" charset="utf-8"></script>
-    <svg id="graph">
+    <svg id="result_graph">
 
         </svg>
-        <p id="test_name"></p>
+    <p id="test_name"></p>
+    <p id="my_point"></p>
+    <p id="average_point"></p>
+
+    <script type="text/javascript">
+        //--------------------テスト結果グラフ--------------------
+        d3.csv("my_results.csv", function(error, myResults) {
+            d3.csv("average_results.csv", function(error, averageResults) {
+                // x軸のスケールを定義
+                var x = d3.scaleBand()
+                    .rangeRound([0, 300])
+                    .padding(.1)
+                    .domain(averageResults.map(function(d, i) {
+                        return d.test_name;
+                    }));
+                // y軸のスケールを定義
+                var y = d3.scaleLinear()
+                    .range([0, 100])
+                    .domain([0, 100]);
+                // ユーザーのテスト結果の棒グラフを描画
+                d3.select('#result_graph').selectAll('.my-bar')
+                    .data(myResults).enter()
+                    .append('rect')
+                    .on('mouseover', hover)
+                    .attr('class', 'my-bar')
+                    .attr('x', function(d, i) {
+                        return x(d.test_name);
+                    })
+                    .attr('width', x.bandwidth())
+                    .attr('y', 100)
+                    .attr('height', 0)
+                    .transition()
+                    .attr('y', function(d, i) {
+                        return 100 - y(d.point);
+                    })
+                    .attr('height', function(d, i) {
+                        return y(d.point);
+                    })
+                // ユーザーのテスト結果の点数を描画
+                d3.select('#result_graph').selectAll('.my-point')
+                    .data(myResults).enter()
+                    .append('text')
+                    .on('mouseover', hover)
+                    .attr('x', function(d, i) {
+                        return x(d.test_name);
+                    })
+                    .attr('y', function(d, i) {
+                        return 112 - y(d.point);
+                    })
+                    .text(function(d, i) {
+                        return d.point;
+                    })
+                // 平均のテスト結果を横線で描画
+                d3.select('#result_graph').selectAll('.average-bar')
+                    .data(averageResults).enter()
+                    .append('rect')
+                    .on('mouseover', hover)
+                    .attr('class', '.average-bar')
+                    .attr('x', function(d, i) {
+                        return x(d.test_name);
+                    })
+                    .attr('y', function(d, i) {
+                        return 100 - y(d.point);
+                    })
+                    .attr('width', x.bandwidth())
+                    .attr('height', 1)
+
+                // マウスオーバーでテスト名や点数を表示
+                function hover(d, i) {
+                    d3.select('#test_name').text(d.test_name);
+                    d3.select('#my_point').text('あなたの点数：'+myResults[i].point);
+                    d3.select('#average_point').text('平均点：'+averageResults[i].point);
+                }
+            })
+        })
+
+        //--------------------進捗グラフ--------------------
+    </script>
 </body>
-<script type="text/javascript">
-    d3.csv("test_results.csv", function(error, list) {
-        var x = d3.scaleBand()
-            .rangeRound([0, 300])
-            .padding(.1)
-            .domain(list.map(function(d, i) {
-                return d.test_name;
-            }));
-        var y = d3.scaleLinear()
-            .range([0, 100])
-            .domain([0, 100]);
-
-        d3.select('#graph').selectAll('.my-bar')
-            .data(list).enter()
-            .append('rect')
-            .on('mouseover',function(d,i){d3.select('#test_name').text(d.test_name);})
-            .attr('class','my-bar')
-            .attr('x', function(d, i) {
-                return x(d.test_name);
-            })
-            .attr('width', x.bandwidth())
-            .attr('y',100)
-            .attr('height',0)
-            .transition()
-            .attr('y', function(d, i) {
-                return 100-y(d.point);
-            })
-            .attr('height', function(d, i) {
-                return y(d.point);
-            })
-
-            d3.select('#graph').selectAll('.my-point')
-            .data(list).enter()
-            .append('text')
-            .attr('x', function(d, i) {
-                return x(d.test_name);
-            })
-            .attr('y', function(d, i) {
-                return 112-y(d.point);
-            })
-            .text(function(d,i){
-                return d.point;
-            })
-
-    })
-</script>
 
 </html>
