@@ -1,18 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="java.sql.*" %>
-<%@
-    try{
-      Connection db = DriverManager.getConnection();
-    }
-%>
-<%@include file="../../../css/main.css" %>
 
 <!DOCTYPE html>
 <html>
   <head>
+  	<link href="<%=request.getContextPath() %>/css/main.css" rel="stylesheet" type="text/css" media="screen" />
     <title>生徒ホーム画面</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="standard.css">
   </head>
   <body>
     <img src="">
@@ -27,30 +21,11 @@
     </table>
     <div id="L_box">
       <img src="">
-      <h2>
-        <%@
-            try{
-              Connection db = DriverManager.getConnection();
-              String sql = "select user_name from accounts";
-              Statement st = db.createStatement();
-              ResultSet rs = st.executeQuery(sql);
-              String shimei = rs.getString("user_name");
-              out.println(shimei);
 
-              rs.close();
-              st.close();
-              db.close();
-
-            }
-            catch (Exception e) {
-              out.println("error");
-            }
-        %>
-      <h2>
       設定
     </div>
     <div id="R_box">
-    	<h1 id="midasi_1">ようこそ、${ userID } さん</h1>
+    	<h1 id="midasi_1">ようこそ、${ userName } さん</h1>
     </div>
   </body>
 </html>
