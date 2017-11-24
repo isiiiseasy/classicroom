@@ -1,10 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="java.sql.*" %>
 <%@
     try{
       Connection db = DriverManager.getConnection();
     }
 %>
+<%@include file="../../../css/main.css" %>
 
 <!DOCTYPE html>
 <html>
@@ -48,6 +49,8 @@
       <h2>
       設定
     </div>
-    <h1>ようこそ、${ userID } さん</h1>
+    <div id="R_box">
+    	<h1 id="midasi_1">ようこそ、${ userID } さん</h1>
+    </div>
   </body>
 </html>

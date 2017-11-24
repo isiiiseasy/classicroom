@@ -1,0 +1,34 @@
+table.header{   /*ヘッダ部分のスタイルです*/
+  background: -moz-linear-gradient(to right, rgb(255, 124, 111), #ffc994);
+  background: -webkit-linear-gradient(to right, rgb(255, 124, 111), #ffc994);
+  background: linear-gradient(to right, rgb(255, 124, 111), #ffc994);
+
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.56);
+  width: 100%;
+  height: 90px;
+
+}
+
+td.header_font{   /*ヘッダ部分のフォントです*/
+  font-size: 30pt;
+  color: white;
+  font-family: Meiryo UI;
+  text-align: center;
+  border: dashed white;
+}
+#L_box{   /*ページ左側青色部分のスタイルです*/
+  float: left;
+  background-color: #0066FF;
+  width:270px;
+  height: 100%;
+  color: white;
+  text-align: center;
+  font-family: Yu Gothic;
+}
+#R_box{
+  float: left;
+  color: green;
+}
+#midasi_1{
+  background: linear-gradient(transparent 70%, #a7d6ff 70%);
+}

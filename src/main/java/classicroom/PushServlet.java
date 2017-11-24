@@ -1,5 +1,7 @@
 package classicroom;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -35,6 +37,14 @@ public class PushServlet extends HttpServlet {
             buf.append(dateonly);
             buf.append(textonly);
             String text = buf.toString();
+            try {
+                BufferedWriter objBw=new BufferedWriter(new FileWriter("chatlog.txt",true));
+                objBw.write(text);
+                objBw.close();
+
+            }catch(IOException e) {
+            	System.out.println(e);
+            }
 
             ServletContext servletContext = request.getServletContext();
             List<AsyncContext> contexts = (List<AsyncContext>) servletContext.getAttribute(PollingServlet.CONTEXT_NAME);
@@ -56,5 +66,7 @@ public class PushServlet extends HttpServlet {
         } finally {
             out.close();
         }
+
+
     }
 }
