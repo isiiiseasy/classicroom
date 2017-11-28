@@ -1,13 +1,31 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="java.sql.*" %>
+
 <html>
-<head>
-<title>マイページ</title>
-<meta charset="UTF-8">
-</head>
-<body>
-	<h1>ようこそ、${ userName } 先生</h1>
-	<p>お疲れ様です！</p>
-	<a href="<%=request.getContextPath() %>/logout">ログアウト</a>
-	<a href="<%=request.getContextPath() %>/useradd">ユーザ登録</a>
-</body>
+  <head>
+  	<link href="<%=request.getContextPath() %>/css/main.css" rel="stylesheet" type="text/css" media="screen" />
+    <title>教師ホーム画面</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <img src="">
+      <div align="right">
+        <a href="<%=request.getContextPath() %>/logout">ログアウト</a>
+      </div>
+    <table class="header">
+      <tr>
+        <td class="header_font" ><a class="header_link" href="">授業</a></td>
+        <td class="header_font"><a class="header_link" href="">自習</a></td>
+        <td class="header_font"><a class="header_link" href="">練習問題</a></td>
+        <td class="header_font"><a class="header_link" href="">テスト</a></td>
+      </tr>
+    </table>
+    <div id="L_box">
+      <img src="">
+      設定
+    </div>
+    <div id="R_box">
+    	<h1 id="midasi_1">ようこそ、${ userName } 先生</h1>
+    </div>
+  </body>
 </html>
