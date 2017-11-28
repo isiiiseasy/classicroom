@@ -5,6 +5,19 @@
     <meta charset="utf-8">
     <title>svgによるグラフ</title>
     <style>
+        .tab-buttons {
+            float: left;
+            background-color: #eeeeee;
+        }
+
+        .tab-buttons.active {
+            background-color: pink;
+        }
+
+        .tab-contents {
+            display: none;
+        }
+
         svg {
             border-style: double;
             border-radius: 2px;
@@ -23,14 +36,32 @@
 
 <body>
     <script src="d3.min.js" charset="utf-8"></script>
-    <svg id="result_graph">
-
-        </svg>
-    <p id="test_name"></p>
-    <p id="my_point"></p>
-    <p id="average_point"></p>
+    <div class="tab">
+        <button type="button" class="tab-buttons" onclick="switchTab(this,'subject-java')">Java</button>
+        <button type="button" class="tab-buttons" onclick="switchTab(this,'subject-c')">C</button>
+        <div id="subject-java" class="tab-contents">
+            <svg id="result_graph"></svg>
+            <p id="test_name"></p>
+            <p id="my_point"></p>
+            <p id="average_point"></p>
+        </div>
+        <div id="subject-c" class="tab-contents">
+        </div>
+    </div>
 
     <script type="text/javascript">
+        //--------------------タブ機能--------------------
+        function switchTab(target, tabId) {
+            Array.prototype.slice.call(document.getElementsByClassName('tab-contents')).forEach(function(e) {
+                e.style.display = 'none'
+            })
+            Array.prototype.slice.call(document.getElementsByClassName('tab-buttons')).forEach(function(e) {
+                e.classList.remove('active');
+            })
+            document.getElementById(tabId).style.display = 'block';
+            target.classList.add('active');
+        }
+        document.getElementsByClassName('tab-buttons')[0].click();
         //--------------------テスト結果グラフ--------------------
         d3.csv("results.csv", function(error, results) {
             // x軸のスケールを定義
