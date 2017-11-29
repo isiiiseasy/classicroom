@@ -40,6 +40,7 @@ public class PushServlet extends HttpServlet {
             try {
                 BufferedWriter objBw=new BufferedWriter(new FileWriter("chatlog.txt",true));
                 objBw.write(text);
+                objBw.newLine();
                 objBw.close();
 
             }catch(IOException e) {
