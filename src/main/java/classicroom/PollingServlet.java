@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "PollingServlet", urlPatterns = {"/chat"}, asyncSupported=true)
+@WebServlet(name = "PollingServlet", urlPatterns = {"/polling"}, asyncSupported=true)
 public class PollingServlet extends HttpServlet {
     public static final String CONTEXT_NAME = "contexts";
 

@@ -14,7 +14,7 @@
             /* 接続 */
             function connect(){
                 $.ajax({
-                    url:"./chat",
+                    url:"./polling",
                     type:"GET",
                     data:{},
                     complete: fin,
