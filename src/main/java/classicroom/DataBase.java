@@ -29,7 +29,7 @@ public class DataBase{
 	        }
 		}
 
-	public static void closeConnection(Connection con){
+	public void close(){
         try{
             con.close();
         }catch(Exception ex){}
@@ -224,7 +224,7 @@ public class DataBase{
 	}
 
 
-	public boolean useradd(String userId,String password,String userName,String teacherFlg) {
+	public boolean addUser(String userId,String password,String userName,String teacherFlg) {
 		boolean flg = false;
 
 		try {
