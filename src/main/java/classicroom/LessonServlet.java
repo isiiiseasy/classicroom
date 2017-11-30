@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "TesutoServlet", urlPatterns = { "tesuto" }, loadOnStartup = 1)
-public class TesutoServlet extends HttpServlet {
+@WebServlet(name = "LessonServlet", urlPatterns = { "lesson" }, loadOnStartup = 1)
+public class LessonServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/student/tesuto.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/student/lesson.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/student/tesuto.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/student/lesson.jsp").forward(request, response);
 	}
 }
