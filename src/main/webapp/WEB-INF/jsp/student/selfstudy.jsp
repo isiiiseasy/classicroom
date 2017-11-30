@@ -5,7 +5,7 @@
 <html>
   <head>
   	<link href="<%=request.getContextPath() %>/css/main.css" rel="stylesheet" type="text/css" media="screen" />
-    <title>練習問題ページ画面</title>
+    <title>自習ページ画面</title>
     <meta charset="utf-8">
   </head>
   <body>
@@ -26,7 +26,7 @@
 
     </div>
     <div id="R_box">
-    	<h1 id="midasi_1">練習問題ページ</h1>
+    	<h1 id="midasi_1">自習ページ</h1>
     </div>
   </body>
 </html>
