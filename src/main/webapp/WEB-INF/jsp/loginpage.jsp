@@ -5,13 +5,26 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<h1>ログイン</h1>
-	<p>id:student,pass:student または id:teacher,pass:teacher で入れます。</p>
-	<form method="post" action="login">
-		<label>ユーザーID:<input type="text" id="userId" name="userId" /></label><br>
-		<label>パスワード:<input type="password" id="password"
-			name="password" /></label><br> <input type="submit" id="submit"
-			value="ログイン" />${ warning }
-	</form>
+  <table style="margin: auto;">
+      <tr>
+        <td align="center" valign="middle">
+          <img src="" alt="ロゴ" width="400px" height="300px">
+        </td>
+      </tr>
+      <tr>
+        <td align="center" valign="middle">
+  	     <form method="post" action="login">
+  		       <label>ユーザーID<input type="text" id="userId" name="userId" /></label><br>
+  		       <label>パスワード<input type="password" id="password" name="password" /></label><br><br>
+             <input type="submit" id="submit" value="ログイン" /><br>
+        </form>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" valign="middle">
+        <p style="color:red;">${ warning }</p>
+        </td>
+      </tr>
+    </table>
 </body>
 </html>

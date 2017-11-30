@@ -10,6 +10,7 @@
   <body>
     <img src="">
       <div align="right">
+     	<a href="<%=request.getContextPath() %>/mypage">マイページ</a>
         <a href="<%=request.getContextPath() %>/logout">ログアウト</a>
       </div>
     <table class="header">
@@ -21,8 +22,9 @@
       </tr>
     </table>
     <div id="L_box">
-      <img src="">
-      設定
+      <img src="" alt="アイコン画像"><br>
+      設定<br>
+      <a href="<%=request.getContextPath() %>/register">ユーザ登録</a>
     </div>
     <div id="R_box">
     	<h1 id="midasi_1">ようこそ、${ userName } 先生</h1>

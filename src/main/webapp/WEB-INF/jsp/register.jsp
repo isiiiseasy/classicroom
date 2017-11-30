@@ -1,19 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ユーザ登録</title>
-</head>
-<body>
-	<h1>ユーザ登録</h1>
-	<form method="post" action="register">
-		<label>ユーザーID:<input type="text" id="userId" name="userId" /></label><br>
-		<label>パスワード:<input type="text" id="password" name="password" /></label><br>
-		<label>氏名:<input type="text" id="userName" name="userName" /></label><br>
-		<label>教師フラグ:<input type="radio" id="teacherFlg" name="teacherFlg" value="false" />生徒</label>
-						  <input type="radio" id="teacherFlg" name="teacherFlg" value="true"/>教師<br>
-		<input type="submit" id="submit" value="登録" />${ message }
-	</form>
-</body>
+  <head>
+  	<link href="<%=request.getContextPath() %>/css/main.css" rel="stylesheet" type="text/css" media="screen" />
+    <title>ユーザ登録画面</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <img src="" alt="ロゴ">
+      <div align="right">
+     	<a href="<%=request.getContextPath() %>/mypage">マイページ</a>
+        <a href="<%=request.getContextPath() %>/logout">ログアウト</a>
+      </div>
+    <table class="header">
+      <tr>
+        <td class="header_font" ><a class="header_link" href="">授業</a></td>
+        <td class="header_font"><a class="header_link" href="">自習</a></td>
+        <td class="header_font"><a class="header_link" href="">練習問題</a></td>
+        <td class="header_font"><a class="header_link" href="">テスト</a></td>
+      </tr>
+    </table>
+    <div id="L_box">
+      <img src="" alt="アイコン画像"><br>
+      設定<br>
+      <a href="<%=request.getContextPath() %>/register">ユーザ登録</a>
+    </div>
+    <div id="R_box">
+    	<h1>ユーザ登録</h1>
+	    <form method="post" action="register">
+	      <table>
+	        <tr>
+	          <td>ユーザーID</td>
+	          <td><input type="text" id="userId" name="userId"></td>
+	        </tr>
+	        <tr>
+	          <td>パスワード</td>
+	          <td><input type="text" id="password" name="password"></td>
+	        </tr>
+	        <tr>
+	          <td>氏名</td>
+	          <td><input type="text" id="userName" name="userName"></td>
+	        </tr>
+	        <tr>
+	          <td>教師フラグ</td>
+	          <td>
+	            <input type="radio" id="teacherFlg" name="teacherFlg" value="false">生徒
+	            <input type="radio" id="teacherFlg" name="teacherFlg" value="false">教師
+	          </td>
+	        </tr>
+	        <tr>
+	          <td></td>
+	          <td>　　　　　　　　<input type="submit" id="submit" value="登録" /></td>
+	        </tr>
+	        <tr>
+	          <td><p style="color:red;">${ message }</p></td>
+	        </tr>
+	      </table>
+	    </form>
+    </div>
+  </body>
 </html>
