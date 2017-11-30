@@ -14,6 +14,12 @@
             background-color: pink;
         }
 
+        .tab::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
         .tab-contents {
             display: none;
         }
@@ -39,14 +45,14 @@
     <div class="tab">
         <button type="button" class="tab-buttons" onclick="switchTab(this,'subject-java')">Java</button>
         <button type="button" class="tab-buttons" onclick="switchTab(this,'subject-c')">C</button>
-        <div id="subject-java" class="tab-contents">
-            <svg id="result_graph"></svg>
-            <p id="test_name"></p>
-            <p id="my_point"></p>
-            <p id="average_point"></p>
-        </div>
-        <div id="subject-c" class="tab-contents">
-        </div>
+    </div>
+    <div id="subject-java" class="tab-contents">
+        <svg id="result_graph"></svg>
+        <p id="test_name"></p>
+        <p id="my_point"></p>
+        <p id="average_point"></p>
+    </div>
+    <div id="subject-c" class="tab-contents">
     </div>
 
     <script type="text/javascript">
