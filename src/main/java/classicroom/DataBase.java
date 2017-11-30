@@ -161,6 +161,7 @@ public class DataBase{
 
 	    //statement.addBatch("DELETE FROM attendances");
 	    statement.addBatch("INSERT INTO attendances VALUES (003,1674401,2,50,'寝坊')");
+	    statement.addBatch("UPDATE accounts SET icon = 'samplePictuer.jpg' WHERE user_id = 'teacher'");
 
 
 
@@ -305,6 +306,27 @@ public class DataBase{
 		return userName;
 	}
 
+
+	public String getImgPath(String userId) {
+		String imgPath = "";
+
+		try {
+			String sql = "SELECT icon FROM accounts WHERE user_id = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,userId);
+
+			ResultSet rs = stmt.executeQuery();
+
+			rs.next();
+			imgPath = rs.getString(1);
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return imgPath;
+	}
 }
 
 

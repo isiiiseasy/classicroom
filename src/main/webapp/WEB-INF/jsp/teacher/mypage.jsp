@@ -22,9 +22,9 @@
       </tr>
     </table>
     <div id="L_box">
-      <img src="" alt="アイコン画像"><br>
+      <br><img src="<%=request.getContextPath() %>/img/${ imgFileName }" alt="アイコン画像" width="250px"><br>
       設定<br>
-      <a href="<%=request.getContextPath() %>/register">ユーザ登録</a>
+      <a href="<%=request.getContextPath() %>/register" style="color: white;text-decoration: none;">ユーザ登録</a>
     </div>
     <div id="R_box">
     	<h1 id="midasi_1">ようこそ、${ userName } 先生</h1>

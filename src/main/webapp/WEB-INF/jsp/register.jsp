@@ -21,11 +21,13 @@
         <td class="header_font"><a class="header_link" href="">テスト</a></td>
       </tr>
     </table>
+    
     <div id="L_box">
-      <img src="" alt="アイコン画像"><br>
+      <br><img src="" alt="アイコン画像" width="250px"><br>
       設定<br>
-      <a href="<%=request.getContextPath() %>/register">ユーザ登録</a>
+      <a href="<%=request.getContextPath() %>/register" style="color: white;text-decoration: none;">ユーザ登録</a>
     </div>
+    
     <div id="R_box">
     	<h1>ユーザ登録</h1>
 	    <form method="post" action="register">

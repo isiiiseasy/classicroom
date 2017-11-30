@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 public class MyPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		DataBase db = new DataBase();
+
+		String imgFileName = db.getImgPath((String) request.getSession(false).getAttribute("userId"));
+
+		request.setAttribute("imgFileName",imgFileName);
+
 		Object userRank = request.getSession(false).getAttribute("userRank");
 		if (userRank.equals("student")) {
 			request.getRequestDispatcher("/WEB-INF/jsp/student/mypage.jsp").forward(request, response);
