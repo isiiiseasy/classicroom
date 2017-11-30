@@ -53,10 +53,8 @@
 	          <td></td>
 	          <td>　　　　　　　　<input type="submit" id="submit" value="登録" /></td>
 	        </tr>
-	        <tr>
-	          <td><p style="color:red;">${ message }</p></td>
-	        </tr>
 	      </table>
+	      <p style="color:red;">${ message }</p>
 	    </form>
     </div>
   </body>

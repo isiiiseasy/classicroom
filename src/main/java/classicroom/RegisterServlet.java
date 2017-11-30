@@ -18,10 +18,16 @@ public class RegisterServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException{
 
+
     	String userId = request.getParameter("userId");
     	String password = request.getParameter("password");
 		String userName = request.getParameter("userName");
 		String teacherFlg = request.getParameter("teacherFlg");
+
+		if (userId == null || userId.equals("") || password == null || password.equals("")|| userName == null || userName.equals("")|| teacherFlg == null || teacherFlg.equals("")) {
+			request.setAttribute("message", "データを入力してください");
+			request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
+		}
 
 		DataBase db = new DataBase();
 
