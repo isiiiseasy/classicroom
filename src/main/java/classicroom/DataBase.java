@@ -29,7 +29,7 @@ public class DataBase{
 	        }
 		}
 
-	public static void closeConnection(Connection con){
+	public void close(){
         try{
             con.close();
         }catch(Exception ex){}
@@ -224,7 +224,7 @@ public class DataBase{
 	}
 
 
-	public boolean useradd(String userId,String password,String userName,String teacherFlg) {
+	public boolean addUser(String userId,String password,String userName,String teacherFlg) {
 		boolean flg = false;
 
 		try {
@@ -249,36 +249,15 @@ public class DataBase{
 		boolean flg = false;
 
 		try {
-			String sql = "SELECT user_id FROM accounts";
-
+			String sql = "SELECT pass FROM accounts WHERE user_id = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			ResultSet rsId = stmt.executeQuery();
 
-			while(rsId.next()) {
+			stmt.setString(1, userId);
+			ResultSet result = stmt.executeQuery();
 
-				if(rsId.getString(1).equals(userId)) {
-
-					sql = "SELECT pass FROM accounts WHERE user_id = ?";
-
-					stmt = con.prepareStatement(sql);
-					stmt.setString(1,userId);
-
-					ResultSet rsPass = stmt.executeQuery();
-
-					while(rsPass.next()) {
-
-						if(rsPass.getString(1).equals(password)) {
-
-							flg = true;
-
-						}
-
-					}
-
-				}
-
+			if(result.next()) {
+				flg = result.getString("pass").equals(password);
 			}
-
 		}catch(SQLException e) {
 			System.out.println(e);
 		}

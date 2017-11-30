@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>ユーザ登録</h1>
-	<form method="post" action="useradd">
+	<form method="post" action="register">
 		<label>ユーザーID:<input type="text" id="userId" name="userId" /></label><br>
 		<label>パスワード:<input type="text" id="password" name="password" /></label><br>
 		<label>氏名:<input type="text" id="userName" name="userName" /></label><br>

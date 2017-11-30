@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "Useradd", urlPatterns = { "useradd" }, loadOnStartup = 1)
-public class Useradd extends HttpServlet{
+@WebServlet(name = "Register", urlPatterns = { "register" }, loadOnStartup = 1)
+public class RegisterServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException{
-		request.getRequestDispatcher("/WEB-INF/useradd.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -25,13 +25,13 @@ public class Useradd extends HttpServlet{
 
 		DataBase db = new DataBase();
 
-		if(db.useradd(userId, password,userName,teacherFlg)) {
+		if(db.addUser(userId, password,userName,teacherFlg)) {
 			request.setAttribute("message", "登録完了");
 		}else {
 			request.setAttribute("message", "登録失敗");
 		}
 
-		request.getRequestDispatcher("/WEB-INF/jsp/useradd.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
 
     }
 }
