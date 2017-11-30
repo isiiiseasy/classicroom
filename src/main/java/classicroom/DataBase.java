@@ -304,6 +304,32 @@ public class DataBase{
 
 		return userName;
 	}
+	
+	public ResultSet getUserResult(String userId) {
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT tests.test_name, results.point AS my_point, average.average_point AS average_point"
+					+ " FROM tests"
+					+ " LEFT OUTER JOIN results ON (tests.test_id = results.test_id AND results.user_id = ?)"
+					+ " RIGHT OUTER JOIN ("
+					+ "     SELECT results.test_id, AVG(point) AS average_point"
+					+ "     FROM results"
+					+ "     GROUP BY results.test_id"
+					+ " ) AS average ON (tests.test_id = average.test_id)"
+					+ " ORDER BY average.test_id";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,userId);
+
+			rs = stmt.executeQuery();
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return rs;
+	}
+
 
 }
 
