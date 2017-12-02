@@ -1,0 +1,23 @@
+#result-graph {
+    width: 400px;
+    height: 100px;
+    margin: 10px;
+    padding: 15px;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+    float: left;
+}
+
+#result-info {
+    float: left;
+}
+
+.my-bar {
+    fill: orange;
+    opacity: 0.9;
+}
+
+.average-bar {
+    fill: red;
+}
