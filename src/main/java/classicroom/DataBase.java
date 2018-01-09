@@ -305,7 +305,19 @@ public class DataBase{
 
 		return userName;
 	}
-	
+
+	public ResultSet getSubjectsList() {
+		ResultSet rs = null;
+		try {
+			Statement stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM subjects");
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return rs;
+	}
+
 	public ResultSet getUserResult(String userId) {
 		ResultSet rs = null;
 		try {
