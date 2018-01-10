@@ -4,6 +4,7 @@
 <html>
     <head>
         <title>チャット</title>
+        <link href="<%= request.getContextPath() %>/css/main.css" rel="stylesheet" type="text/css" media="screen" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript">
@@ -39,8 +40,8 @@
         </script>
     </head>
     <body>
-        <h1>チャットだよん</h1>
+        <h1 id="chat_main">チャットだよん</h1>
         <input type="text" id="txt"/><button id="btn">入力</button>
-        <div id="result"></div>
+        <div id="result" class="outputchat"></div>
     </body>
 </html>

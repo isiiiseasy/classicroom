@@ -55,11 +55,20 @@
     <script src="<%= request.getContextPath() %>/js/d3.min.js" charset="utf-8"></script>
     <script src="<%= request.getContextPath() %>/js/tab.js" charset="utf-8"></script>
     <script src="<%= request.getContextPath() %>/js/result_graph.js" charset="utf-8"></script>
+
+	<script type="text/javascript">
+	    function window_open(){
+			window.open("chat.jsp","window_name","width=640,height=480,scrollbars=yes");
+			document.fdata.target = "window_name";
+			document.fdata.method = "post";
+			document.fdata.action = "example.shtml";
+			document.fdata.submit();
+		}
+	</script>
+
+	<div class="icon_box_bk">
+		<a href="#" onclick="window_open()">チャットをひらく</a>
+	</div>
 </body>
-	<a href="chat.jsp" onclick="window.open('chat.jsp','subwin','width=300,height=300');
-		document.input_form.target = "subwin";
-    	document.input_form.method = "post";
-    	document.input_form.action = "chat.jsp";
-   		document.input_form.submit();
-    	return false;">チャットをひらく</a>
+
 </html>

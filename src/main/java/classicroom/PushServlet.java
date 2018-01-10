@@ -1,8 +1,9 @@
 package classicroom;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,7 +39,9 @@ public class PushServlet extends HttpServlet {
             buf.append(textonly);
             String text = buf.toString();
             try {
-                BufferedWriter objBw=new BufferedWriter(new FileWriter("chatlog.txt",true));
+            	OutputStreamWriter osw  = new OutputStreamWriter(new FileOutputStream("chatlog.txt",true), "UTF-8");
+                BufferedWriter objBw = new BufferedWriter(osw);
+
                 objBw.write(text);
                 objBw.newLine();
                 objBw.close();
