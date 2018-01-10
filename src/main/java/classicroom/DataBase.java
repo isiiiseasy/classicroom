@@ -306,7 +306,7 @@ public class DataBase{
 		return userName;
 	}
 
-	public ResultSet getSubjectsList() {
+	public ResultSet getSubjects() {
 		ResultSet rs = null;
 		try {
 			Statement stmt = con.createStatement();
