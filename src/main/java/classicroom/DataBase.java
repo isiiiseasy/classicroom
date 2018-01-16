@@ -161,9 +161,6 @@ public class DataBase{
 
 	    //statement.addBatch("DELETE FROM attendances");
 	    statement.addBatch("INSERT INTO attendances VALUES (003,1674401,2,50,'寝坊')");
-	    statement.addBatch("UPDATE accounts SET icon = 'samplePictuer.jpg' WHERE user_id = 'teacher'");
-
-
 
 
 	    statement.executeBatch();
@@ -229,13 +226,14 @@ public class DataBase{
 		boolean flg = false;
 
 		try {
-			String sql = "INSERT INTO accounts (user_id,pass,user_name,teacher_flg) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO accounts (user_id,pass,user_name,teacher_flg,icon) VALUES (?,?,?,?,?)";
 
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1,userId);
 			stmt.setString(2,password);
 			stmt.setString(3,userName);
 			stmt.setBoolean(4,Boolean.valueOf(teacherFlg));
+			stmt.setString(5,"default");
 			stmt.executeUpdate();
 
 			flg = true;
@@ -345,7 +343,7 @@ public class DataBase{
 
 
 
-	public String getImgPath(String userId) {
+	public String getImgFileName(String userId) {
 		String imgPath = "";
 
 		try {
@@ -364,6 +362,21 @@ public class DataBase{
 		}
 
 		return imgPath;
+	}
+
+	public void IconSet(String userId,String fileName) {
+		try {
+			String sql = "UPDATE accounts SET icon = ? WHERE user_id = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,fileName);
+			stmt.setString(2,userId);
+
+			stmt.executeUpdate();
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
 	}
 }
 
