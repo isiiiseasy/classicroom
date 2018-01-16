@@ -42,6 +42,11 @@ a.header_link {
     line-height: 100px;
 }
 
+a.normal_link{
+	color: white;
+	text-decoration: none;"
+}
+
 #L_box {
     /*ページ左側青色部分のスタイルです*/
     float: left;
@@ -86,3 +91,5 @@ div.outputchat{
 	top:600px;
 	right: 20px;
 }
+
+

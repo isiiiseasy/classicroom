@@ -32,8 +32,7 @@ public class FileUploadServlet extends HttpServlet {
 	String userId = (String) session.getAttribute("userId");
     Part filePart = request.getPart("file");
     String fileName = (new StringBuilder(userId)
-      .append("_").append(filePart.getSubmittedFileName()
-    ).toString());
+      .append("_img.jpg").toString());
 
     save(filePart, new File(img, fileName));
 
