@@ -12,6 +12,7 @@
       <div align="right">
      	<a href="<%=request.getContextPath() %>/mypage">マイページ</a>
         <a href="<%=request.getContextPath() %>/logout">ログアウト</a>
+        <a href="<%=request.getContextPath() %>/image">image</a>
       </div>
     <table class="header">
       <tr>
@@ -22,7 +23,7 @@
       </tr>
     </table>
     <div id="L_box">
-      <br><img src="<%=request.getContextPath() %>/img/${ imgFileName }" alt="アイコン画像" width="250px"><br>
+      <br><img src="img/${ imgFileName }" alt="アイコン画像" width="250px"><br>
       設定<br>
       <a href="<%=request.getContextPath() %>/register" style="color: white;text-decoration: none;">ユーザ登録</a>
     </div>

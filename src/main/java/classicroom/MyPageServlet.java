@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "MyPageServlet", urlPatterns = { "mypage" }, loadOnStartup = 1)
 public class MyPageServlet extends HttpServlet {
@@ -15,7 +16,9 @@ public class MyPageServlet extends HttpServlet {
 
 		DataBase db = new DataBase();
 
-		String imgFileName = db.getImgPath((String) request.getSession(false).getAttribute("userId"));
+		HttpSession session = request.getSession(false);
+
+		String imgFileName = db.getImgFileName((String)session.getAttribute("userId"));
 
 		request.setAttribute("imgFileName",imgFileName);
 

@@ -345,7 +345,7 @@ public class DataBase{
 
 
 
-	public String getImgPath(String userId) {
+	public String getImgFileName(String userId) {
 		String imgPath = "";
 
 		try {
@@ -364,6 +364,21 @@ public class DataBase{
 		}
 
 		return imgPath;
+	}
+
+	public void IconSet(String userId,String fileName) {
+		try {
+			String sql = "UPDATE accounts SET icon = ? WHERE user_id = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,fileName);
+			stmt.setString(2,userId);
+
+			stmt.executeUpdate();
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
 	}
 }
 
