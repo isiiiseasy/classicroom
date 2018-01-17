@@ -304,6 +304,27 @@ public class DataBase{
 		return userName;
 	}
 
+	public String getSubjectName(int subjectId) {
+		String subjectName = "";
+
+		try {
+			String sql = "SELECT subject_name FROM subjects WHERE subject_id = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1,subjectId);
+
+			ResultSet rs = stmt.executeQuery();
+
+			rs.next();
+			subjectName = rs.getString(1);
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return subjectName;
+	}
+
 	public ResultSet getSubjects() {
 		ResultSet rs = null;
 		try {
