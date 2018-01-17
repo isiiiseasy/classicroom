@@ -34,6 +34,7 @@ public class MyResultAPIServlet extends HttpServlet {
 				JsonObjectBuilder subject = Json.createObjectBuilder();
 				currentSubjectId = rs.getInt("subject_id");
 				subject.add("subject_id", currentSubjectId);
+				subject.add("subject_name", db.getSubjectName(currentSubjectId));
 
 				JsonArrayBuilder resultsArray = Json.createArrayBuilder();
 
