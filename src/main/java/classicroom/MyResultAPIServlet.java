@@ -20,7 +20,7 @@ public class MyResultAPIServlet extends HttpServlet {
 		DataBase db = new DataBase();
 		String userId = (String) request.getSession(false).getAttribute("userId");
 		ResultSet rs = db.getUserResults(userId);
-		String currentSubjectId = null;
+		int currentSubjectId = -1;
 		JsonArrayBuilder subjectsArray = Json.createArrayBuilder();
 
 		response.setContentType("application/json;charset=utf-8");
@@ -32,12 +32,12 @@ public class MyResultAPIServlet extends HttpServlet {
 			}
 			while (rs != null && !rs.isAfterLast()) {
 				JsonObjectBuilder subject = Json.createObjectBuilder();
-				currentSubjectId = rs.getString("subject_id");
+				currentSubjectId = rs.getInt("subject_id");
 				subject.add("subject_id", currentSubjectId);
 
 				JsonArrayBuilder resultsArray = Json.createArrayBuilder();
 
-				while (rs.getString("subject_id").equals(currentSubjectId)) {
+				while (rs.getInt("subject_id") == (currentSubjectId)) {
 					JsonObjectBuilder testResult = Json.createObjectBuilder();
 					testResult.add("test_name", rs.getString("test_name"));
 					testResult.add("my_point", rs.getInt("my_point"));
