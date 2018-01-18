@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="java.io.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -42,29 +43,15 @@
     <body>
         <h1 id="chat_main">チャットだよん</h1>
 
-        <script>
-			function writeSignature() {
-			    var xhr = new XMLHttpRequest();
-			    xhr.addEventListener("load", function(){
-			        var e = document.getElementById("*");
-			        for (var i = 0, j; j = e[i]; i++) {
-			            if (j.className === "signature") {
-			                j.innerHTML = xhr.responseText;
-			            }
-			        }
-			    });
-			    xhr.open("get", "./../../../chatlog.txt");
-			    xhr.send();
-			}
+		<%
+		BufferedReader bufFileData =
+        new BufferedReader(new FileReader("chatlog.txt"));
+  		while(bufFileData.ready()){
+    	out.println(bufFileData.readLine() + "<BR>");
+  		}
+  		bufFileData.close();
+		%>
 
-			function Init() {
-			    writeSignature();
-			}
-
-			window.onload = Init;
-		</script>
-
-		<pre class="signature"></pre>
         <div id="result" class="outputchat"></div>
         <input type="text" id="txt"/><input type="submit" id="btn"/>
     </body>

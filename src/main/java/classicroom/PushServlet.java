@@ -26,13 +26,13 @@ public class PushServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            request.setCharacterEncoding("utf-8");
+            request.setCharacterEncoding("UTF-8");
             String textonly = request.getParameter("text");
 
             Calendar date = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("  yyyy/MM/dd HH:mm:ss  ");
             String dateonly = (sdf.format(date.getTime()));
-            String username = (String) request.getSession(false).getAttribute("userID");
+            String username = (String) request.getSession(false).getAttribute("userName");
             StringBuffer buf = new StringBuffer();
             buf.append(username);
             buf.append(dateonly);
@@ -40,6 +40,7 @@ public class PushServlet extends HttpServlet {
             String text = buf.toString();
             try {
             	OutputStreamWriter osw  = new OutputStreamWriter(new FileOutputStream("chatlog.txt",true), "UTF-8");
+            	//OutputStreamWriter osw  = new OutputStreamWriter(new FileOutputStream("chatlog.txt",true),"windows-31J");
                 BufferedWriter objBw = new BufferedWriter(osw);
 
                 objBw.write(text);
@@ -55,7 +56,7 @@ public class PushServlet extends HttpServlet {
             if(contexts != null){
                 for(AsyncContext ac : contexts ){
                     try{
-                        ac.getResponse().setCharacterEncoding("utf-8");
+                        ac.getResponse().setCharacterEncoding("UTF-8");
                         PrintWriter writer = ac.getResponse().getWriter();
                         writer.println(text);
                         writer.close();
