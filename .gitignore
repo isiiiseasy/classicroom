@@ -38,3 +38,7 @@ bin
 *.swp
 *.bak
 *.db
+
+
+# 追加
+chatlog.txt
