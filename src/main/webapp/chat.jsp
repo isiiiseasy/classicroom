@@ -41,7 +41,31 @@
     </head>
     <body>
         <h1 id="chat_main">チャットだよん</h1>
-        <input type="text" id="txt"/><button id="btn">入力</button>
+
+        <script>
+			function writeSignature() {
+			    var xhr = new XMLHttpRequest();
+			    xhr.addEventListener("load", function(){
+			        var e = document.getElementById("*");
+			        for (var i = 0, j; j = e[i]; i++) {
+			            if (j.className === "signature") {
+			                j.innerHTML = xhr.responseText;
+			            }
+			        }
+			    });
+			    xhr.open("get", "./../../../chatlog.txt");
+			    xhr.send();
+			}
+
+			function Init() {
+			    writeSignature();
+			}
+
+			window.onload = Init;
+		</script>
+
+		<pre class="signature"></pre>
         <div id="result" class="outputchat"></div>
+        <input type="text" id="txt"/><input type="submit" id="btn"/>
     </body>
 </html>
