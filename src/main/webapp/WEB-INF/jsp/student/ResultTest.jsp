@@ -9,13 +9,20 @@
   <meta charset="utf-8">
 </head>
 <body>
-  <h1>結果は・・・</h1>
+  <h1>お疲れ様でした！！！</h1>
 
+<%--オブジェクトじゃないとエラーはくよ--%>
 <%
-  String strAns = request.getParameter("score");
+  Object strAns = request.getAttribute("score");
   out.println( strAns + "点でした");
 %>
 
-でした
+<br>
+
+結果は自動採点されます。
+マイページへ戻ってください
+
+<br>
+<a href="<%=request.getContextPath() %>/mypage" style="color: black;">マイページに戻る</a>
 </body>
 </html>

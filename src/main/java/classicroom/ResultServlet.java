@@ -43,11 +43,11 @@ public class ResultServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		//request.setAttribute("score", Integer.toString(score));      //getParameter
+		request.setAttribute("score", Integer.toString(score));      //getParameter
 
 		out.println(score);  //ここのscoreはちゃんときてる
 
-		//request.getRequestDispatcher("/WEB-INF/jsp/student/ResultTest.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/student/ResultTest.jsp").forward(request, response);
 
 
 

@@ -30,8 +30,8 @@
 
     <h1 id="midasi_1">テストページ</h1>
 
-
-    <HR style="margin: 3em 0 ;">
+	<p>解答は一回しかできないので、見直しをしっかりおこないましょう！！！！</p>
+    <%--<HR style="margin: 3em 0 ;">--%>
 
    	<div id="modal-content">
    	 <form method="post" action="result">
@@ -66,7 +66,7 @@
     <p><a id="modal-close" class="button-link">閉じる</a></p>
     </div>
 
-    <HR style="margin: 3em 0 ;">
+    <%--<HR style="margin: 3em 0 ;">--%>
 
     <p><a id="modal-open" class="button-link">テスト開始</a></p>
     </div>

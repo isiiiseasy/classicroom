@@ -137,7 +137,6 @@ public class DataBase{
 	    statement.addBatch("INSERT INTO lessons VALUES (003,02,1,to_date('2017/04/12','YYYY/MM/DD'))");
 
 	    statement.addBatch("INSERT INTO tests VALUES (001,'第1回Java効果測定',to_date('2017/04/20','YYYY/MM/DD'),true,01)");
-	    statement.addBatch("INSERT INTO tests VALUES (003,'第2回Java効果測定',to_date('2017/04/21','YYYY/MM/DD'),true,01)");
 	    statement.addBatch("INSERT INTO tests VALUES (002,'第1回C言語効果測定',to_date('2017/04/22','YYYY/MM/DD'),false,02)");
 
 	    statement.addBatch("INSERT INTO chapters VALUES (101,'J1章',01)");
@@ -159,7 +158,6 @@ public class DataBase{
 	    statement.addBatch("INSERT INTO results VALUES (001,1674401,100)");
 	    statement.addBatch("INSERT INTO results VALUES (002,1674400,80)");
 	    statement.addBatch("INSERT INTO results VALUES (002,1674401,50)");
-	    statement.addBatch("INSERT INTO results VALUES (003,1674401,50)");
 
 	    //statement.addBatch("DELETE FROM attendances");
 	    statement.addBatch("INSERT INTO attendances VALUES (003,1674401,2,50,'寝坊')");

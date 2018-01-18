@@ -1,4 +1,4 @@
-.result-graph {
+result-graph {
     width: 400px;
     height: 100px;
     margin: 10px;
@@ -9,7 +9,7 @@
     float: left;
 }
 
-.result-info {
+result-info {
     float: left;
 }
 
