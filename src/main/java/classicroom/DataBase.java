@@ -161,9 +161,6 @@ public class DataBase{
 
 	    //statement.addBatch("DELETE FROM attendances");
 	    statement.addBatch("INSERT INTO attendances VALUES (003,1674401,2,50,'寝坊')");
-	    statement.addBatch("UPDATE accounts SET icon = 'samplePictuer.jpg' WHERE user_id = 'teacher'");
-
-
 
 
 	    statement.executeBatch();
@@ -229,13 +226,14 @@ public class DataBase{
 		boolean flg = false;
 
 		try {
-			String sql = "INSERT INTO accounts (user_id,pass,user_name,teacher_flg) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO accounts (user_id,pass,user_name,teacher_flg,icon) VALUES (?,?,?,?,?)";
 
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1,userId);
 			stmt.setString(2,password);
 			stmt.setString(3,userName);
 			stmt.setBoolean(4,Boolean.valueOf(teacherFlg));
+			stmt.setString(5,"default");
 			stmt.executeUpdate();
 
 			flg = true;
@@ -306,6 +304,27 @@ public class DataBase{
 		return userName;
 	}
 
+	public String getSubjectName(int subjectId) {
+		String subjectName = "";
+
+		try {
+			String sql = "SELECT subject_name FROM subjects WHERE subject_id = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1,subjectId);
+
+			ResultSet rs = stmt.executeQuery();
+
+			rs.next();
+			subjectName = rs.getString(1);
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return subjectName;
+	}
+
 	public ResultSet getSubjects() {
 		ResultSet rs = null;
 		try {
@@ -318,10 +337,10 @@ public class DataBase{
 		return rs;
 	}
 
-	public ResultSet getUserResult(String userId) {
+	public ResultSet getUserResults(String userId) {
 		ResultSet rs = null;
 		try {
-			String sql = "SELECT tests.test_name, results.point AS my_point, average.average_point AS average_point"
+			String sql = "SELECT tests.test_id, tests.test_name, results.point AS my_point, average.average_point, tests.subject_id"
 					+ " FROM tests"
 					+ " LEFT OUTER JOIN results ON (tests.test_id = results.test_id AND results.user_id = ?)"
 					+ " RIGHT OUTER JOIN ("
@@ -329,7 +348,7 @@ public class DataBase{
 					+ "     FROM results"
 					+ "     GROUP BY results.test_id"
 					+ " ) AS average ON (tests.test_id = average.test_id)"
-					+ " ORDER BY average.test_id";
+					+ " ORDER BY tests.subject_id, tests.test_id";
 
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1,userId);
@@ -345,7 +364,7 @@ public class DataBase{
 
 
 
-	public String getImgPath(String userId) {
+	public String getImgFileName(String userId) {
 		String imgPath = "";
 
 		try {
@@ -364,6 +383,21 @@ public class DataBase{
 		}
 
 		return imgPath;
+	}
+
+	public void IconSet(String userId,String fileName) {
+		try {
+			String sql = "UPDATE accounts SET icon = ? WHERE user_id = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,fileName);
+			stmt.setString(2,userId);
+
+			stmt.executeUpdate();
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
 	}
 }
 

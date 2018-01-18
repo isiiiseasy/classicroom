@@ -42,6 +42,11 @@ a.header_link {
     line-height: 100px;
 }
 
+a.normal_link{
+	color: white;
+	text-decoration: none;"
+}
+
 #L_box {
     /*ページ左側青色部分のスタイルです*/
     float: left;
@@ -86,6 +91,8 @@ div.outputchat{
 	top:600px;
 	right: 20px;
 }
+<<<<<<< HEAD
+/*******
 #modal-content{
 	width:50%;
 	margin:1.5em auto 0;
@@ -115,4 +122,8 @@ div.outputchat{
 	height:120%;
 	background-color:rgba(0,0,0,0.75);
 }
+******/
+=======
+
+>>>>>>> branch 'master' of https://github.com/isiiiseasy/classicroom.git
 

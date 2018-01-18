@@ -14,8 +14,8 @@
 <body>
     <img src="logo.png">
     <div align="right">
-        <a href="<%=request.getContextPath() %>/mypage">マイページ</a>
-        <a href="<%=request.getContextPath() %>/logout">ログアウト</a>
+        <a href="<%=request.getContextPath() %>/mypage" style="color: black;">マイページ</a>
+        <a href="<%=request.getContextPath() %>/logout" style="color: black;">ログアウト</a>
     </div>
     <table class="header">
         <tr>
@@ -34,27 +34,22 @@
         </tr>
     </table>
     <div id="L_box">
-        <img src="icon.jpg"> 設定
+      <br>
+      <a class="normal_link" href="<%=request.getContextPath() %>/image">
+      	<img src="img/${ userId }_img.jpg" alt="No Image" height="250px" width="250px">
+      </a><br>
+      <a class="normal_link">name : ${ userName }</a><br><br>
+      設定<br>
+      <a class="normal_link" href="<%=request.getContextPath() %>/image">アイコン画像変更</a>
     </div>
     <div id="R_box">
         <h1 id="midasi_1">ようこそ、${ userName } さん</h1>
-        <div class="tab">
-            <button type="button" class="tab-buttons" onclick="switchTab(this,'subject-java')">Java</button>
-            <button type="button" class="tab-buttons" onclick="switchTab(this,'subject-c')">C言語</button>
-        </div>
-        <div id="subject-java" class="tab-contents">
-            <svg id="result-graph"></svg>
-            <div class="result-info">
-                <p id="test_name"></p>
-                <p id="my_point"></p>
-                <p id="average_point"></p>
-            </div>
-        </div>
-        <div id="subject-c" class="tab-contents"></div>
+        <div id="graph-tab" class="tab"></div>
+        <div id="graph-tab-contents"></div>
     </div>
     <script src="<%= request.getContextPath() %>/js/d3.min.js" charset="utf-8"></script>
     <script src="<%= request.getContextPath() %>/js/tab.js" charset="utf-8"></script>
-    <script src="<%= request.getContextPath() %>/js/result_graph.js" charset="utf-8"></script>
+    <script src="<%= request.getContextPath() %>/js/mypage_s.js" charset="utf-8"></script>
 
 	<script type="text/javascript">
 	    function window_open(){

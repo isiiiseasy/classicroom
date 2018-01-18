@@ -9,5 +9,3 @@ function switchTab(target, tabId) {
     document.getElementById(tabId).style.display = 'block';
     target.classList.add('active');
 }
-
-document.getElementsByClassName('tab-buttons')[0].click();

@@ -10,8 +10,8 @@
   <body>
     <img src="">
       <div align="right">
-     	<a href="<%=request.getContextPath() %>/mypage">マイページ</a>
-        <a href="<%=request.getContextPath() %>/logout">ログアウト</a>
+     	<a href="<%=request.getContextPath() %>/mypage" style="color: black;">マイページ</a>
+        <a href="<%=request.getContextPath() %>/logout" style="color: black;">ログアウト</a>
       </div>
     <table class="header">
       <tr>
@@ -22,9 +22,14 @@
       </tr>
     </table>
     <div id="L_box">
-      <br><img src="<%=request.getContextPath() %>/img/${ imgFileName }" alt="アイコン画像" width="250px"><br>
+      <br>
+      <a class="normal_link" href="<%=request.getContextPath() %>/image">
+      	<img src="img/${ userId }_img.jpg" alt="No Image" height="250px" width="250px">
+      </a><br>
+      <a class="normal_link">name : ${ userName }</a><br><br>
       設定<br>
-      <a href="<%=request.getContextPath() %>/register" style="color: white;text-decoration: none;">ユーザ登録</a>
+      <a class="normal_link" href="<%=request.getContextPath() %>/register">ユーザ登録</a><br>
+      <a class="normal_link" href="<%=request.getContextPath() %>/image">アイコン画像変更</a>
     </div>
     <div id="R_box">
     	<h1 id="midasi_1">ようこそ、${ userName } 先生</h1>
