@@ -44,13 +44,15 @@
         <h1 id="chat_main">チャットだよん</h1>
 
 		<%
-		BufferedReader bufFileData =
-        new BufferedReader(new FileReader("chatlog.txt"));
+
+		BufferedReader bufFileData = new BufferedReader(new InputStreamReader(new FileInputStream("chatlog.txt"),"UTF-8"));
   		while(bufFileData.ready()){
     	out.println(bufFileData.readLine() + "<BR>");
   		}
   		bufFileData.close();
 		%>
+
+		<%--BufferedReader bufFileData = new BufferedReader(new FileReader("chatlog.txt"));--%>
 
         <div id="result" class="outputchat"></div>
         <input type="text" id="txt"/><input type="submit" id="btn"/>
