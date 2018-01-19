@@ -44,6 +44,14 @@
         <h1 id="chat_main">チャットだよん</h1>
 
 		<%
+		File newfile = new File("chatlog.txt");
+
+		try{
+		    newfile.createNewFile();
+		    out.println("create!!");
+		}catch(IOException e){
+		    out.println(e);
+		}
 
 		BufferedReader bufFileData = new BufferedReader(new InputStreamReader(new FileInputStream("chatlog.txt"),"UTF-8"));
   		while(bufFileData.ready()){
@@ -51,8 +59,6 @@
   		}
   		bufFileData.close();
 		%>
-
-		<%--BufferedReader bufFileData = new BufferedReader(new FileReader("chatlog.txt"));--%>
 
         <div id="result" class="outputchat"></div>
         <input type="text" id="txt"/><input type="submit" id="btn"/>
