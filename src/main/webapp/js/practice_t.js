@@ -3,10 +3,8 @@ xhr.onreadystatechange = function(){
     if (xhr.readyState == 4 && xhr.status == 200) {
         var data = JSON.parse(xhr.responseText);
         if (document.readyState == 'interactive' || document.readyState == 'complete') {
-            console.log('hoge');
             makeSectionList(data);
         } else {
-            console.log('huga');
             document.addEventListener('DOMContentLoaded', function() {
                 makeSectionList(data);
             });
