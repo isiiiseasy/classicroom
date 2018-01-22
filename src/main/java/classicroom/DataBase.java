@@ -146,8 +146,8 @@ public class DataBase{
 
 	    statement.addBatch("INSERT INTO sections VALUES (1101,'J1章1項目',101)");
 	    statement.addBatch("INSERT INTO sections VALUES (1102,'J1章2項目',101)");
-	    statement.addBatch("INSERT INTO sections VALUES (1201,'J2章1項目',101)");
-	    statement.addBatch("INSERT INTO sections VALUES (2101,'C1章1項目',102)");
+	    statement.addBatch("INSERT INTO sections VALUES (1201,'J2章1項目',102)");
+	    statement.addBatch("INSERT INTO sections VALUES (2101,'C1章1項目',201)");
 
 	    statement.addBatch("INSERT INTO progress VALUES (1101,1674400,80,to_date('2017/04/06','YYYY/MM/DD'))");
 	    statement.addBatch("INSERT INTO progress VALUES (1102,1674400,70,to_date('2017/04/08','YYYY/MM/DD'))");
@@ -332,6 +332,38 @@ public class DataBase{
 		try {
 			Statement stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM subjects");
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return rs;
+	}
+
+	public ResultSet getChapters(int subjectId) {
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM chapters WHERE subject_id = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1,subjectId);
+
+			rs = stmt.executeQuery();
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return rs;
+	}
+
+	public ResultSet getSections(int chapterId) {
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM sections WHERE chapter_id = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1,chapterId);
+
+			rs = stmt.executeQuery();
 		}catch(Exception e) {
 			System.out.println(e);
 		}
