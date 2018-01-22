@@ -12,11 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 public class PracticeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/student/practice.jsp").forward(request, response);
+		Object userRank = request.getSession(false).getAttribute("userRank");
+		if (userRank.equals("student")) {
+			request.getRequestDispatcher("/WEB-INF/jsp/student/practice.jsp").forward(request, response);
+		} else if (userRank.equals("teacher")) {
+			request.getRequestDispatcher("/WEB-INF/jsp/teacher/practice.jsp").forward(request, response);
+		} else {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/student/practice.jsp").forward(request, response);
+		doGet(request,response);
 	}
 }
