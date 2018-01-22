@@ -14,6 +14,7 @@
 		<form name="news" method="post" action="checknews">
 			<textarea name="newstext" rows="10" cols="40"></textarea>
 			<input type="submit" name="bt1" value="Check!">
+
 		</form>
     </body>
 </html>

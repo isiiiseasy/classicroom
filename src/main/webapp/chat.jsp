@@ -48,7 +48,6 @@
 
 		try{
 		    newfile.createNewFile();
-		    out.println("create!!");
 		}catch(IOException e){
 		    out.println(e);
 		}

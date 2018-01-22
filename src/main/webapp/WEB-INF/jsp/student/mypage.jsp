@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.io.*" %>
 <!DOCTYPE html>
 <html>
 
@@ -60,6 +61,25 @@
 			document.fdata.submit();
 		}
 	</script>
+
+	<div class="box22">
+	<h2>お知らせですよ！！</h2>
+		<%
+			File newfile = new File("newnews.txt");
+
+			try{
+			    newfile.createNewFile();
+			}catch(IOException e){
+			    out.println(e);
+			}
+
+			BufferedReader bufFileData = new BufferedReader(new InputStreamReader(new FileInputStream("newnews.txt"),"UTF-8"));
+	  		while(bufFileData.ready()){
+	    	out.println(bufFileData.readLine() + "<BR>");
+	  		}
+	  		bufFileData.close();
+		%>
+	</div>
 
 	<div class="icon_box_bk">
 		<a href="#" onclick="window_open()">チャットをひらく</a>

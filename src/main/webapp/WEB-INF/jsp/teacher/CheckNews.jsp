@@ -11,22 +11,22 @@
     </head>
     <body>
 	    <h1 id="chat_main">入力内容を確認してください。</h1>
-				<%
-		File newfile = new File("newnews.txt");
+		<%
+			File newfile = new File("newnews.txt");
 
-		try{
-		    newfile.createNewFile();
-		    out.println("create!!");
-		}catch(IOException e){
-		    out.println(e);
-		}
+			try{
+			    newfile.createNewFile();
+			}catch(IOException e){
+			    out.println(e);
+			}
 
-		BufferedReader bufFileData = new BufferedReader(new InputStreamReader(new FileInputStream("newnews.txt"),"UTF-8"));
-  		while(bufFileData.ready()){
-    	out.println(bufFileData.readLine() + "<BR>");
-  		}
-  		bufFileData.close();
+			BufferedReader bufFileData = new BufferedReader(new InputStreamReader(new FileInputStream("newnews.txt"),"UTF-8"));
+	  		while(bufFileData.ready()){
+	    	out.println(bufFileData.readLine() + "<BR>");
+	  		}
+	  		bufFileData.close();
 		%>
-		</form>
+		<br>
+		<a href="<%=request.getContextPath() %>/mypage" style="color: black;">マイページ</a>
     </body>
 </html>
