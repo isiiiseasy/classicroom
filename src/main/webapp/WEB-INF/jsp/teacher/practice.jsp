@@ -22,8 +22,10 @@
 		<h1 id="midasi_1">練習問題ページ</h1>
 
 		<h2>練習問題</h2>
-		<div id="question-list"></div>
-		<button>更新</button>
+		<ol id="question-list"></ol>
+		<button id="add-practice">増やす</button>
+		<button id="delete-practice">減らす</button>
+		<button id="submit-practice">更新</button>
 	</div>
 </body>
 </html>
