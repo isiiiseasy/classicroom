@@ -43,4 +43,5 @@ bin
 # 追加
 chatlog.txt
 newnews.txt
+newslog.txt
 /data/*
