@@ -31,8 +31,8 @@ public class PracticesAPIServlet extends HttpServlet {
         if (sectionId != null && sectionId.length() > 0) {
             try (Stream<String> lines = Files.lines(Paths.get("data/practice/" + sectionId + ".json"),
                     StandardCharsets.UTF_8);) {
-                PrintWriter responseWriter = response.getWriter();
                 response.setContentType("application/json;charset=utf-8");
+                PrintWriter responseWriter = response.getWriter();
                 lines.forEachOrdered(line -> responseWriter.print(line));
             } catch (IOException e) {
                 System.out.println(e);
@@ -52,8 +52,8 @@ public class PracticesAPIServlet extends HttpServlet {
             try (BufferedWriter bw = Files.newBufferedWriter(Paths.get("data/practice/" + sectionId + ".json"),
                     StandardCharsets.UTF_8); PrintWriter pw = new PrintWriter(bw, true);) {
                 pw.print(jsonData);
-                PrintWriter responseWriter = response.getWriter();
                 response.setContentType("application/json;charset=utf-8");
+                PrintWriter responseWriter = response.getWriter();
                 responseWriter.print(jsonData);
             } catch (IOException e) {
                 System.out.println(e);
