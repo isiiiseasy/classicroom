@@ -8,19 +8,8 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <img src="" alt="ロゴ">
-      <div align="right">
-     	<a href="<%=request.getContextPath() %>/mypage">マイページ</a>
-        <a href="<%=request.getContextPath() %>/logout">ログアウト</a>
-      </div>
-    <table class="header">
-      <tr>
-        <td class="header_font" ><a class="header_link" href="">授業</a></td>
-        <td class="header_font"><a class="header_link" href="">自習</a></td>
-        <td class="header_font"><a class="header_link" href="">練習問題</a></td>
-        <td class="header_font"><a class="header_link" href="">テスト</a></td>
-      </tr>
-    </table>
+
+  	<%@ include file="/WEB-INF/jsp/pageheader.jsp" %>
 
     <div id="L_box">
       <br>
