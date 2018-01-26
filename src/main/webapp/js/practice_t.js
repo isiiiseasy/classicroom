@@ -132,7 +132,7 @@ function submitPractice(section_id) {
         }
         data.push(practice);
     });
-    parameter += JSON.stringify(data);
+    parameter += encodeURIComponent(JSON.stringify(data));
 
     var post = new XMLHttpRequest();
     post.onreadystatechange = function() {
