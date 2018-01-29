@@ -8,7 +8,7 @@
   <table style="margin: auto;">
       <tr>
         <td align="center" valign="middle">
-          <img src="" alt="ロゴ" width="400px" height="300px">
+          <img src="./img/iteach.gif" alt="ロゴ" width="400px" height="350px">
         </td>
       </tr>
       <tr>
