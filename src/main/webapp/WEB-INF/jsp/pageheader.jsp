@@ -2,7 +2,7 @@
 <%@ page import="java.sql.*" %>
 
 
-    <img src="logo.png" alt="ロゴ">
+    <img src="./img/pagelogo1.png" alt="ロゴ" width="300px" height="117px">
 
     <div align="right">
         <a href="<%=request.getContextPath() %>/mypage" style="color: black; font-family: Meiryo UI; text-decoration: none;">マイページ</a>
