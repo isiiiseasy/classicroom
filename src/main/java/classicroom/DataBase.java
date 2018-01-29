@@ -78,19 +78,19 @@ public class DataBase{
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE progress(section_id INT,user_id INT,intelligibility INT NOT NULL,working_date DATE NOT NULL,PRIMARY KEY(section_id,user_id))";
+		sql = "CREATE TABLE progress(section_id INT,user_id VARCHAR(255),intelligibility INT NOT NULL,working_date DATE NOT NULL,PRIMARY KEY(section_id,user_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE results(test_id INT,user_id INT,point INT NOT NULL,PRIMARY KEY(test_id,user_id))";
+		sql = "CREATE TABLE results(test_id INT,user_id VARCHAR(255),point INT NOT NULL,PRIMARY KEY(test_id,user_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE attendances(lesson_id INT,user_id INT,attendance_situation INT NOT NULL,class_attitude INT NOT NULL,note VARCHAR(255),PRIMARY KEY(lesson_id,user_id))";
+		sql = "CREATE TABLE attendances(lesson_id INT,user_id VARCHAR(255),attendance_situation INT NOT NULL,note VARCHAR(255),PRIMARY KEY(lesson_id,user_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
@@ -161,9 +161,6 @@ public class DataBase{
 	    statement.addBatch("INSERT INTO results VALUES (002,1674401,50)");
 	    statement.addBatch("INSERT INTO results VALUES (003,1674401,50)");
 
-	    //statement.addBatch("DELETE FROM attendances");
-	    statement.addBatch("INSERT INTO attendances VALUES (003,1674401,2,50,'寝坊')");
-
 
 	    statement.executeBatch();
 
@@ -210,11 +207,10 @@ public class DataBase{
 
 			while(rs.next()){
 		        int lessonId = rs.getInt("lesson_id");
-		        int userId = rs.getInt("user_id");
+		        String userId = rs.getString("user_id");
 		        int attendanceSituation = rs.getInt("attendance_situation");
-		        int classAttitude = rs.getInt("class_attitude");
 		        String note = rs.getString("note");
-		        System.out.println(lessonId+","+userId+","+attendanceSituation+","+classAttitude+","+note);
+		        System.out.println(lessonId+","+userId+","+attendanceSituation+","+note);
 		      }
 
             System.out.println("printok");
@@ -425,6 +421,21 @@ public class DataBase{
 
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1,fileName);
+			stmt.setString(2,userId);
+
+			stmt.executeUpdate();
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void SetAttendances(int lessonId,String userId) {
+		try {
+			String sql = "INSERT INTO attendances VALUES (?,?,1,'')";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1,lessonId);
 			stmt.setString(2,userId);
 
 			stmt.executeUpdate();
