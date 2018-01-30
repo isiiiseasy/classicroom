@@ -60,4 +60,155 @@ public class SectionsAPIServlet extends HttpServlet {
 		}
 
 	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		DataBase db = new DataBase();
+		String subjectIdString = request.getParameter("subject-id");
+		String subjectName = request.getParameter("subject-name");
+		String chapterIdString = request.getParameter("chapter-id");
+		String chapterName = request.getParameter("chapter-name");
+		String sectionName = request.getParameter("section-name");
+		int subjectId = -1, chapterId = -1;
+		try {
+			if (subjectIdString != null && !subjectIdString.equals("")) {
+				subjectId = Integer.parseInt(subjectIdString);
+			}
+			if (chapterIdString != null && !chapterIdString.equals("")) {
+				chapterId = Integer.parseInt(chapterIdString);
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			response.sendError(404);
+			return;
+		}
+
+		if (subjectName != null) {
+			if (db.addSubject(subjectName)) {
+				doGet(request, response);
+			} else {
+				response.sendError(404);
+			}
+			return;
+		}
+
+		if (subjectId > 0 && chapterName != null) {
+			if (db.addChapter(subjectId, chapterName)) {
+				doGet(request, response);
+			} else {
+				response.sendError(404);
+			}
+			return;
+		}
+
+		if (chapterId > 0 && sectionName != null) {
+			if (db.addSection(chapterId, sectionName)) {
+				doGet(request, response);
+			} else {
+				response.sendError(404);
+			}
+		}
+	}
+
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		DataBase db = new DataBase();
+		String subjectIdString = request.getParameter("subject-id");
+		String chapterIdString = request.getParameter("chapter-id");
+		String sectionIdString = request.getParameter("section-id");
+		int subjectId = -1, chapterId = -1, sectionId = -1;
+		try {
+			if (subjectIdString != null && !subjectIdString.equals("")) {
+				subjectId = Integer.parseInt(subjectIdString);
+			}
+			if (chapterIdString != null && !chapterIdString.equals("")) {
+				chapterId = Integer.parseInt(chapterIdString);
+			}
+			if (sectionIdString != null && !sectionIdString.equals("")) {
+				sectionId = Integer.parseInt(sectionIdString);
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			response.sendError(404);
+			return;
+		}
+
+		if (subjectId > 0) {
+			if (db.deleteSubject(subjectId)) {
+				doGet(request, response);
+			} else {
+				response.sendError(404);
+			}
+			return;
+		}
+
+		if (chapterId > 0) {
+			if (db.deleteChapter(chapterId)) {
+				doGet(request, response);
+			} else {
+				response.sendError(404);
+			}
+			return;
+		}
+
+		if (sectionId > 0) {
+			if (db.deleteSection(sectionId)) {
+				doGet(request, response);
+			} else {
+				response.sendError(404);
+			}
+			return;
+		}
+	}
+
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		DataBase db = new DataBase();
+		String subjectIdString = request.getParameter("subject-id");
+		String subjectName = request.getParameter("subject-name");
+		String chapterIdString = request.getParameter("chapter-id");
+		String chapterName = request.getParameter("chapter-name");
+		String sectionIdString = request.getParameter("section-id");
+		String sectionName = request.getParameter("section-name");
+		int subjectId = -1, chapterId = -1, sectionId = -1;
+		try {
+			if (subjectIdString != null && !subjectIdString.equals("")) {
+				subjectId = Integer.parseInt(subjectIdString);
+			}
+			if (chapterIdString != null && !chapterIdString.equals("")) {
+				chapterId = Integer.parseInt(chapterIdString);
+			}
+			if (sectionIdString != null && !sectionIdString.equals("")) {
+				sectionId = Integer.parseInt(sectionIdString);
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			response.sendError(404);
+			return;
+		}
+
+		if (subjectId > 0 && subjectName != null) {
+			if (db.changeSubjectName(subjectId, subjectName)) {
+				doGet(request, response);
+			} else {
+				response.sendError(404);
+			}
+		}
+
+		if (chapterId > 0 && chapterName != null) {
+			if (db.changeChapterName(chapterId, chapterName)) {
+				doGet(request, response);
+			} else {
+				response.sendError(404);
+			}
+		}
+
+		if (sectionId > 0 && sectionName != null) {
+			if (db.changeSectionName(sectionId, sectionName)) {
+				doGet(request, response);
+			} else {
+				response.sendError(404);
+			}
+		}
+	}
 }
