@@ -160,6 +160,7 @@ function requestSectionAPI(method,param) {
             makeSectionList(data);
         }
     };
-    xhr.open('POST', 'api/sections');
-    xhr.send(param);
+    xhr.open(method, 'api/sections');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(encodeURIComponent(param));
 }
