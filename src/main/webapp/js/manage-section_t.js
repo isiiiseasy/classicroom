@@ -16,6 +16,9 @@ function getSectionData() {
 
 function makeSectionList(data) {
     var sectionList = document.getElementById('section-list');
+    Array.prototype.slice.call(sectionList.children).forEach(function(child) {
+        child.parentNode.removeChild(child);
+    });
     for (var subject of data) {
         var DOMSubject = document.createElement('li');
         var DOMChapterList = document.createElement('ol');
@@ -160,7 +163,6 @@ function requestSectionAPI(method, param) {
             makeSectionList(data);
         }
     };
-    xhr.open(method, 'api/sections');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send(param);
+    xhr.open(method, 'api/sections?' + param);
+    xhr.send();
 }
