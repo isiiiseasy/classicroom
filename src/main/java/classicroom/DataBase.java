@@ -50,31 +50,31 @@ public class DataBase{
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
-		sql = "CREATE TABLE subjects(subject_id INT,subject_name VARCHAR(255) NOT NULL,PRIMARY KEY(subject_id))";
+		sql = "CREATE TABLE subjects(subject_id INT auto_increment,subject_name VARCHAR(255) NOT NULL,PRIMARY KEY(subject_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE lessons(lesson_id INT,subject_id INT NOT NULL,times INT NOT NULL,lesson_date DATE NOT NULL,PRIMARY KEY(lesson_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
+		sql = "CREATE TABLE lessons(lesson_id INT auto_increment,subject_id INT NOT NULL,times INT NOT NULL,lesson_date DATE NOT NULL,PRIMARY KEY(lesson_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE tests(test_id INT,test_name VARCHAR(255) NOT NULL,test_date DATE NOT NULL,end_flg BOOLEAN NOT NULL,subject_id INT NOT NULL,PRIMARY KEY(test_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
+		sql = "CREATE TABLE tests(test_id INT auto_increment,test_name VARCHAR(255) NOT NULL,test_date DATE NOT NULL,end_flg BOOLEAN NOT NULL,subject_id INT NOT NULL,PRIMARY KEY(test_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE chapters(chapter_id INT,chapter_name VARCHAR(255) NOT NULL,subject_id INT NOT NULL,PRIMARY KEY(chapter_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
+		sql = "CREATE TABLE chapters(chapter_id INT auto_increment,chapter_name VARCHAR(255) NOT NULL,subject_id INT NOT NULL,PRIMARY KEY(chapter_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
 
 
-		sql = "CREATE TABLE sections(section_id INT,section_name VARCHAR(255) NOT NULL,chapter_id INT NOT NULL,PRIMARY KEY(section_id),FOREIGN KEY (chapter_id)REFERENCES chapters(chapter_id))";
+		sql = "CREATE TABLE sections(section_id INT auto_increment,section_name VARCHAR(255) NOT NULL,chapter_id INT NOT NULL,PRIMARY KEY(section_id),FOREIGN KEY (chapter_id)REFERENCES chapters(chapter_id))";
 
 		stmt = con.prepareStatement(sql);
 		stmt.executeUpdate();
@@ -131,37 +131,37 @@ public class DataBase{
 	    statement.addBatch("INSERT INTO accounts VALUES ('1674401','ssap','大原 花子',false,'',)");
 	    statement.addBatch("INSERT INTO accounts VALUES ('teacher','teacher','大原 教師郎',true,'',)");
 
-	    statement.addBatch("INSERT INTO subjects VALUES (01,'Java')");
-	    statement.addBatch("INSERT INTO subjects VALUES (02,'C言語')");
+	    statement.addBatch("INSERT INTO subjects VALUES (default,'Java')");
+	    statement.addBatch("INSERT INTO subjects VALUES (default,'C言語')");
 
-	    statement.addBatch("INSERT INTO lessons VALUES (001,01,1,to_date('2017/04/05','YYYY/MM/DD'))");
-	    statement.addBatch("INSERT INTO lessons VALUES (002,01,2,to_date('2017/04/07','YYYY/MM/DD'))");
-	    statement.addBatch("INSERT INTO lessons VALUES (003,02,1,to_date('2017/04/12','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO lessons VALUES (default,01,1,to_date('2017/04/05','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO lessons VALUES (default,01,2,to_date('2017/04/07','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO lessons VALUES (default,02,1,to_date('2017/04/12','YYYY/MM/DD'))");
 
-	    statement.addBatch("INSERT INTO tests VALUES (001,'第1回Java効果測定',to_date('2017/04/20','YYYY/MM/DD'),true,01)");
-	    statement.addBatch("INSERT INTO tests VALUES (003,'第2回Java効果測定',to_date('2017/04/21','YYYY/MM/DD'),true,01)");
-	    statement.addBatch("INSERT INTO tests VALUES (002,'第1回C言語効果測定',to_date('2017/04/22','YYYY/MM/DD'),false,02)");
+	    statement.addBatch("INSERT INTO tests VALUES (default,'第1回Java効果測定',to_date('2017/04/20','YYYY/MM/DD'),true,01)");
+	    statement.addBatch("INSERT INTO tests VALUES (default,'第2回Java効果測定',to_date('2017/04/21','YYYY/MM/DD'),true,01)");
+	    statement.addBatch("INSERT INTO tests VALUES (default,'第1回C言語効果測定',to_date('2017/04/22','YYYY/MM/DD'),false,02)");
 
-	    statement.addBatch("INSERT INTO chapters VALUES (101,'J1章',01)");
-	    statement.addBatch("INSERT INTO chapters VALUES (102,'J2章',01)");
-	    statement.addBatch("INSERT INTO chapters VALUES (201,'C1章',02)");
+	    statement.addBatch("INSERT INTO chapters VALUES (default,'J1章',1)");
+	    statement.addBatch("INSERT INTO chapters VALUES (default,'J2章',1)");
+	    statement.addBatch("INSERT INTO chapters VALUES (default,'C1章',2)");
 
-	    statement.addBatch("INSERT INTO sections VALUES (1101,'J1章1項目',101)");
-	    statement.addBatch("INSERT INTO sections VALUES (1102,'J1章2項目',101)");
-	    statement.addBatch("INSERT INTO sections VALUES (1201,'J2章1項目',102)");
-	    statement.addBatch("INSERT INTO sections VALUES (2101,'C1章1項目',201)");
+	    statement.addBatch("INSERT INTO sections VALUES (default,'J1章1項目',1)");
+	    statement.addBatch("INSERT INTO sections VALUES (default,'J1章2項目',1)");
+	    statement.addBatch("INSERT INTO sections VALUES (default,'J2章1項目',2)");
+	    statement.addBatch("INSERT INTO sections VALUES (default,'C1章1項目',3)");
 
-	    statement.addBatch("INSERT INTO progress VALUES (1101,1674400,80,to_date('2017/04/06','YYYY/MM/DD'))");
-	    statement.addBatch("INSERT INTO progress VALUES (1102,1674400,70,to_date('2017/04/08','YYYY/MM/DD'))");
-	    statement.addBatch("INSERT INTO progress VALUES (2101,1674400,100,to_date('2017/04/15','YYYY/MM/DD'))");
-	    statement.addBatch("INSERT INTO progress VALUES (1101,1674401,30,to_date('2017/04/06','YYYY/MM/DD'))");
-	    statement.addBatch("INSERT INTO progress VALUES (1102,1674401,40,to_date('2017/04/10','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO progress VALUES (1,1674400,80,to_date('2017/04/06','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO progress VALUES (2,1674400,70,to_date('2017/04/08','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO progress VALUES (3,1674400,100,to_date('2017/04/15','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO progress VALUES (1,1674401,30,to_date('2017/04/06','YYYY/MM/DD'))");
+	    statement.addBatch("INSERT INTO progress VALUES (2,1674401,40,to_date('2017/04/10','YYYY/MM/DD'))");
 
-	    statement.addBatch("INSERT INTO results VALUES (001,1674400,98)");
-	    statement.addBatch("INSERT INTO results VALUES (001,1674401,100)");
-	    statement.addBatch("INSERT INTO results VALUES (002,1674400,80)");
-	    statement.addBatch("INSERT INTO results VALUES (002,1674401,50)");
-	    statement.addBatch("INSERT INTO results VALUES (003,1674401,50)");
+	    statement.addBatch("INSERT INTO results VALUES (1,1674400,98)");
+	    statement.addBatch("INSERT INTO results VALUES (1,1674401,100)");
+	    statement.addBatch("INSERT INTO results VALUES (2,1674400,80)");
+	    statement.addBatch("INSERT INTO results VALUES (2,1674401,50)");
+	    statement.addBatch("INSERT INTO results VALUES (3,1674401,50)");
 
 
 	    statement.executeBatch();
