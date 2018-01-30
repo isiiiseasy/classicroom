@@ -39,6 +39,7 @@ public class AttendancesServlet extends HttpServlet {
 		else {		 		//参照処理
 			String lesson = request.getParameter("lessonNum");
 			int lessonNum = Integer.parseInt(lesson);
+			lessonNum = lessonNum - 1;
 
 			ServletContext attendances = this.getServletContext();
 			Enumeration<String> e = attendances.getAttributeNames();
