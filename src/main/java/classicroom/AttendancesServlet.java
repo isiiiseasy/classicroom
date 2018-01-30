@@ -30,16 +30,15 @@ public class AttendancesServlet extends HttpServlet {
 
 			System.out.println(lessonNum+userName+kubun+biko+userId);
 
-			if(db.UpdateAttendances(lessonNum,userId,kubun,biko)) {
-				request.setAttribute("message", "変更完了");
-			}else {
-				request.setAttribute("message", "変更失敗");
-			}
+				if(db.UpdateAttendances(lessonNum,userId,kubun,biko)) {
+					request.setAttribute("message", "変更完了");
+				}else {
+					request.setAttribute("message", "変更失敗");
+				}
 			}
 		else {		 		//参照処理
 			String lesson = request.getParameter("lessonNum");
 			int lessonNum = Integer.parseInt(lesson);
-			lessonNum = lessonNum - 1;
 
 			ServletContext attendances = this.getServletContext();
 			Enumeration<String> e = attendances.getAttributeNames();

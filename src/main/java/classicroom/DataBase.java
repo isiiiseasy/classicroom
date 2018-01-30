@@ -516,9 +516,6 @@ public class DataBase{
 			PreparedStatement stmt = con.prepareStatement(sql);
 
 			ResultSet rs = stmt.executeQuery();
-			rs.next();
-
-			System.out.println(rs);
 
 			while(rs.next()) {
 				list.add("第"+String.valueOf(rs.getInt(1))+"回");
