@@ -20,6 +20,11 @@ public class TestServlet extends HttpServlet {
 		if (userRank.equals("student")) {
 			request.getRequestDispatcher("/WEB-INF/jsp/student/test.jsp").forward(request, response);
 		} else if (userRank.equals("teacher")) {
+			String pointdata = db.getTestPoint();
+
+			request.setAttribute("point",pointdata);
+
+
 			request.getRequestDispatcher("/WEB-INF/jsp/teacher/test.jsp").forward(request, response);
 		} else {
 			response.sendError(HttpServletResponse.SC_FORBIDDEN);

@@ -336,7 +336,7 @@ public class DataBase{
 
 			ResultSet rs = stmt.executeQuery();
 
-			rs.next();
+
 			subjectName = rs.getString(1);
 
 		}catch(Exception e) {
@@ -468,6 +468,45 @@ public class DataBase{
 		}
 	}
 
+
+	public void SetResults(int point,String userId) {
+		try {
+			String sql = "INSERT INTO results VALUES (001,?,?)";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,userId);
+			stmt.setInt(2,point);
+
+			stmt.executeUpdate();
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public String getTestPoint() {
+		String data = "";
+        StringBuffer buf = new StringBuffer();
+		try {
+			String sql = "SELECT * FROM results WHERE test_id = 001";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()) {
+				buf.append(rs.getString(3));
+			}
+
+            data = buf.toString();
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return data;
+	}
+
 	public List<String> getAttendancesTable() {
 		List<String> list = new ArrayList<String>();
 		DataBase db = new DataBase();
@@ -532,6 +571,7 @@ public class DataBase{
 			System.out.println(e);
 		}
 		return flg;
+
 	}
 }
 

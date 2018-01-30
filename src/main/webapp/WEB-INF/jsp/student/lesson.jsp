@@ -13,6 +13,7 @@
   	<%@ include file="/WEB-INF/jsp/pageheader.jsp" %>
 
     <div id="L_box">
+    <div align="left">
       <ol>
         <li>Java言語
         <ul>
@@ -30,6 +31,7 @@
           <li>午後対策:ネットワーク
           <li>午後対策:データベース
         </ul>
+        </div>
     </div>
     <div id="R_box">
       こちらは授業ページです。<br>
