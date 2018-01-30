@@ -94,7 +94,7 @@ function addChapter(subjectId) {
 function addSubject() {
     var subjectName = window.prompt('新しい教科名');
     if (subjectName) {
-        requestSectionAPI('POST','&chapter-name='+subjectName);
+        requestSectionAPI('POST','&subject-name='+subjectName);
     } else {
         window.alert('キャンセルされました');
     }
