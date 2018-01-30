@@ -2,6 +2,7 @@ package classicroom;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,10 @@ public class LoginServlet extends HttpServlet {
 
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
+
+		ServletContext attendances = this.getServletContext();
+		attendances.setAttribute(userId,"in");
+
 		if (userId == null || userId.equals("") || password == null || password.equals("")) {
 			request.setAttribute("warning", "ユーザーIDとパスワードを入力してください");
 			request.getRequestDispatcher("/WEB-INF/jsp/loginpage.jsp").forward(request, response);

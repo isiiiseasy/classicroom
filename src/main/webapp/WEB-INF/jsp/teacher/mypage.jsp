@@ -20,6 +20,7 @@
       設定<br>
       <a class="normal_link" href="<%=request.getContextPath() %>/register">ユーザ登録</a><br>
       <a class="normal_link" href="<%=request.getContextPath() %>/image">アイコン画像変更</a>
+      <a class="normal_link" href="<%=request.getContextPath() %>/attendances">出欠状況確認</a>
     </div>
     <div id="R_box">
     	<h1 id="midasi_1">ようこそ、${ userName } 先生</h1>
