@@ -26,6 +26,10 @@
     <div id="R_box">
     	<h1 id="midasi_1">ようこそ、${ userName } 先生</h1>
 		<a href="<%=request.getContextPath() %>/news" style="color: black;">お知らせを登録</a>
+		<form method="GET" action="attendances">
+			<input type="hidden" name="lessonNum" value="0">
+			<input type="submit" value="出欠状況確認">
+		</form>
     </div>
   </body>
 </html>

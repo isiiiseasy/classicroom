@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataBase {
 
@@ -293,6 +295,27 @@ public class DataBase {
 		return userName;
 	}
 
+	public String getUserID(String userName) {
+		String userId = "";
+
+		try {
+			String sql = "SELECT user_id FROM accounts WHERE user_name = ?";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,userName);
+
+			ResultSet rs = stmt.executeQuery();
+
+			rs.next();
+			userId = rs.getString(1);
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return userId;
+	}
+
 	public String getSubjectName(int subjectId) {
 		String subjectName = "";
 
@@ -304,7 +327,7 @@ public class DataBase {
 
 			ResultSet rs = stmt.executeQuery();
 
-			rs.next();
+
 			subjectName = rs.getString(1);
 
 		} catch (Exception e) {
@@ -563,6 +586,109 @@ public class DataBase {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+
+
+	public void SetResults(int point,String userId) {
+		try {
+			String sql = "INSERT INTO results VALUES (001,?,?)";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1,userId);
+			stmt.setInt(2,point);
+
+			stmt.executeUpdate();
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public String getTestPoint() {
+		String data = "";
+        StringBuffer buf = new StringBuffer();
+		try {
+			String sql = "SELECT * FROM results WHERE test_id = 001";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()) {
+				buf.append(rs.getString(3));
+			}
+
+            data = buf.toString();
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return data;
+	}
+
+	public List<String> getAttendancesTable() {
+		List<String> list = new ArrayList<String>();
+		DataBase db = new DataBase();
+		try {
+			String sql = "SELECT * FROM attendances ORDER BY lesson_Id DESC";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()) {
+				list.add("第"+String.valueOf(rs.getInt(1))+"回");
+				list.add(db.getUserName(rs.getString(2)));
+				if(rs.getInt(3)==1)
+					list.add("欠席");
+				else if(rs.getInt(3)==2)
+					list.add("遅刻");
+				else if(rs.getInt(3)==3)
+					list.add("早退");
+				list.add(rs.getString(4));
+				list.add("<br>");
+			}
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return list;
+	}
+
+	public boolean UpdateAttendances(int lessonId,String userId,int kubun,String biko) {
+		boolean flg = false;
+
+		try {
+			if(kubun != 4) {
+				String sql = "UPDATE attendances SET attendance_situation = ?,note = ? WHERE lesson_id = ? AND user_id = ?";
+
+				PreparedStatement stmt = con.prepareStatement(sql);
+				stmt.setInt(1,kubun);
+				stmt.setString(2,biko);
+				stmt.setInt(3,lessonId);
+				stmt.setString(4,userId);
+
+				stmt.executeUpdate();
+
+				flg = true;
+			}else {
+				String sql = "DELETE FROM attendances WHERE lesson_id = ? AND user_id = ?";
+
+				PreparedStatement stmt = con.prepareStatement(sql);
+				stmt.setInt(1,lessonId);
+				stmt.setString(2,userId);
+
+				stmt.executeUpdate();
+
+				flg = true;
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return flg;
+
 	}
 }
 
