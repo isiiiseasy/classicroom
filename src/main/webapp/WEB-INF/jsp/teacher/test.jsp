@@ -25,9 +25,9 @@
 
 		<h2 id="test-title">問題</h2>
 		<ol id="question-list"></ol>
-		<button id="add-practice">増やす</button>
-		<button id="delete-practice">減らす</button>
-		<button id="submit-practice">更新</button>
+		<button id="add-question">増やす</button>
+		<button id="delete-question">減らす</button>
+		<button id="submit-question">更新</button>
 	</div>
 </body>
 </html>
