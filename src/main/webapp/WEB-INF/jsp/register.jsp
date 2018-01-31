@@ -17,7 +17,10 @@
       </a><br>
       <a class="normal_link">name : ${ userName }</a><br><br>
       設定<br>
-      <a href="<%=request.getContextPath() %>/register" style="color: white;text-decoration: none;">ユーザ登録</a>
+      <a class="normal_link" href="<%=request.getContextPath() %>/register">ユーザ登録</a><br>
+      <a class="normal_link" href="<%=request.getContextPath() %>/image">アイコン画像変更</a><br>
+      <a class="normal_link" href="<%=request.getContextPath() %>/attendances">出欠状況確認</a><br>
+      <a class="normal_link" href="<%=request.getContextPath() %>/manage-section">教科・学習項目管理</a><br>
     </div>
 
     <div id="R_box">
