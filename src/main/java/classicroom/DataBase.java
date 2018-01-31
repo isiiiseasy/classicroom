@@ -59,7 +59,7 @@ public class DataBase {
 			stmt = con.prepareStatement(sql);
 			stmt.executeUpdate();
 
-			sql = "CREATE TABLE tests(test_id INT auto_increment,test_name VARCHAR(255) NOT NULL,test_date DATE NOT NULL,end_flg BOOLEAN NOT NULL,subject_id INT NOT NULL,PRIMARY KEY(test_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
+			sql = "CREATE TABLE tests(test_id INT auto_increment,test_name VARCHAR(255) NOT NULL,test_date DATE NOT NULL,end_flg BOOLEAN NOT NULL,public_flg BOOLEAN NOT NULL,subject_id INT NOT NULL,PRIMARY KEY(test_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
 
 			stmt = con.prepareStatement(sql);
 			stmt.executeUpdate();
@@ -129,11 +129,11 @@ public class DataBase {
 			statement.addBatch("INSERT INTO lessons VALUES (default,02,'Cいっかいめ')");
 
 			statement.addBatch(
-					"INSERT INTO tests VALUES (default,'第1回Java効果測定',to_date('2017/04/20','YYYY/MM/DD'),true,01)");
+					"INSERT INTO tests VALUES (default,'第1回Java効果測定',to_date('2017/04/20','YYYY/MM/DD'),true,true,01)");
 			statement.addBatch(
-					"INSERT INTO tests VALUES (default,'第2回Java効果測定',to_date('2017/04/21','YYYY/MM/DD'),true,01)");
+					"INSERT INTO tests VALUES (default,'第2回Java効果測定',to_date('2017/04/21','YYYY/MM/DD'),true,true,01)");
 			statement.addBatch(
-					"INSERT INTO tests VALUES (default,'第1回C言語効果測定',to_date('2017/04/22','YYYY/MM/DD'),false,02)");
+					"INSERT INTO tests VALUES (default,'第1回C言語効果測定',to_date('2017/04/22','YYYY/MM/DD'),false,true,02)");
 
 			statement.addBatch("INSERT INTO chapters VALUES (default,'J1章',1)");
 			statement.addBatch("INSERT INTO chapters VALUES (default,'J2章',1)");
@@ -190,8 +190,9 @@ public class DataBase {
 				String testName = rs.getString("test_name");
 				Date testDate = rs.getDate("test_date");
 				boolean endFlg = rs.getBoolean("end_flg");
+				boolean publicFlg = rs.getBoolean("public_flg");
 				int subjectId = rs.getInt("subject_id");
-				System.out.println(testId + "," + testName + "," + testDate + "," + endFlg + "," + subjectId + ",");
+				System.out.println(testId + "," + testName + "," + testDate + "," + endFlg + "," + publicFlg + "," + subjectId + ",");
 			}
 
 			sql = "SELECT * FROM attendances";
@@ -523,6 +524,7 @@ public class DataBase {
 					+ "     FROM results"
 					+ "     GROUP BY results.test_id"
 					+ " ) AS average ON (tests.test_id = average.test_id)"
+					+ " WHERE tests.public_flg = true"
 					+ " ORDER BY tests.subject_id, tests.test_id";
 
 			PreparedStatement stmt = con.prepareStatement(sql);
