@@ -19,17 +19,13 @@
       <a class="normal_link">name : ${ userName }</a><br><br>
       設定<br>
       <a class="normal_link" href="<%=request.getContextPath() %>/register">ユーザ登録</a><br>
-      <a class="normal_link" href="<%=request.getContextPath() %>/image">アイコン画像変更</a>
-      <a class="normal_link" href="<%=request.getContextPath() %>/attendances">出欠状況確認</a>
-      <a class="normal_link" href="<%=request.getContextPath() %>/manage-section">教科・学習項目管理</a>
+      <a class="normal_link" href="<%=request.getContextPath() %>/image">アイコン画像変更</a><br>
+      <a class="normal_link" href="<%=request.getContextPath() %>/attendances">出欠状況確認</a><br>
+      <a class="normal_link" href="<%=request.getContextPath() %>/manage-section">教科・学習項目管理</a><br>
     </div>
     <div id="R_box">
     	<h1 id="midasi_1">ようこそ、${ userName } 先生</h1>
 		<a href="<%=request.getContextPath() %>/news" style="color: black;">お知らせを登録</a>
-		<form method="GET" action="attendances">
-			<input type="hidden" name="lessonNum" value="0">
-			<input type="submit" value="出欠状況確認">
-		</form>
     </div>
   </body>
 </html>
