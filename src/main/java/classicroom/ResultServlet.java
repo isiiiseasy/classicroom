@@ -18,6 +18,7 @@ public class ResultServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		DataBase db = new DataBase();
 
 
 		String que1 = request.getParameter("que-1");
@@ -40,6 +41,8 @@ public class ResultServlet extends HttpServlet {
 		if(que4.equals("no1")) {
 		  score+=25;
 		}
+
+		db.SetResults(score, (String) request.getSession(false).getAttribute("userId"));
 
 		PrintWriter out = response.getWriter();
 
