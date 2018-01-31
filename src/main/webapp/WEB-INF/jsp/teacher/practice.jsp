@@ -21,7 +21,7 @@
 	<div id="R_box">
 		<h1 id="midasi_1">練習問題ページ</h1>
 
-		<h2>練習問題</h2>
+		<h2 id="section-title">練習問題</h2>
 		<ol id="question-list"></ol>
 		<button id="add-practice">増やす</button>
 		<button id="delete-practice">減らす</button>

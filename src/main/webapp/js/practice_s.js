@@ -84,6 +84,7 @@ function getPractices(section_id) {
     };
     xhr.open('GET', 'api/practices?section-id=' + section_id);
     xhr.send();
+    document.getElementById('section-title').textContent = this.textContent;
 }
 
 function checkPractice() {

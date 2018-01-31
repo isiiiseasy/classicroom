@@ -19,7 +19,7 @@
     </div>
     <div id="R_box">
     	<h1 id="midasi_1">練習問題ページ</h1>
-		<h2>練習問題</h2>
+		<h2 id="section-title">練習問題</h2>
 		<ol id="question-list"></ol>
 		<button id="check-practice">答え合わせ</button>
     </div>
