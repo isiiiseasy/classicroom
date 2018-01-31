@@ -327,7 +327,7 @@ public class DataBase {
 
 			ResultSet rs = stmt.executeQuery();
 
-
+			rs.next();
 			subjectName = rs.getString(1);
 
 		} catch (Exception e) {
