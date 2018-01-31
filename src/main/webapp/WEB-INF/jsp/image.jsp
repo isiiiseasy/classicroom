@@ -20,6 +20,7 @@
 
     <div id="R_box">
     	<h1>アイコン画像変更</h1>
+    	<input type="hidden" name="flg" value="0">
 	    <form method="POST" enctype="multipart/form-data" action="fileupload">
   		<p><input type="file" name="file"><input type="submit" value="設定"></p>
 		</form>

@@ -24,24 +24,55 @@ public class FileUploadServlet extends HttpServlet {
   {
     // ファイルの保存
     DataBase db = new DataBase();
+    
+    String flg = request.getParameter("flg");
 
-	File img = new File(this.getServletContext().getRealPath("/img"));
-
-	HttpSession session = request.getSession(false);
-
-	String userId = (String) session.getAttribute("userId");
-    Part filePart = request.getPart("file");
-    String fileName = (new StringBuilder(userId)
-      .append("_img.jpg").toString());
-
-    save(filePart, new File(img, fileName));
-
-    db.IconSet(userId, fileName);
-
-    response.sendRedirect("mypage");
+	if(flg.equals("0")) {	//アイコン画像保存
+		
+		File img = new File(this.getServletContext().getRealPath("/img"));
+	
+		HttpSession session = request.getSession(false);
+	
+		String userId = (String) session.getAttribute("userId");
+	    Part filePart = request.getPart("file");
+	    String fileName = (new StringBuilder(userId)
+	      .append("_img.jpg").toString());
+	
+	    save(filePart, new File(img, fileName));
+	
+	    db.IconSet(userId, fileName);
+	
+	    response.sendRedirect("mypage");
+	    
+	}else {					//授業ファイル保存
+		
+		File img = new File(this.getServletContext().getRealPath("/lessonfile"));
+	
+	    Part filePart = request.getPart("file");
+	    String fileName = extractFileName(filePart);
+	
+	    save(filePart, new File(img, fileName));
+	
+	    
+	
+	    response.sendRedirect("mypage");
+	}
 
 
   }
+  
+  private String extractFileName(Part part) { //ファイル名取得
+	  String[] splitedHeader = part.getHeader("Content-Disposition").split(";");
+
+	  String fileName = null;
+	  for(String item: splitedHeader) {
+	      if(item.trim().startsWith("filename")) {
+	          fileName = item.substring(item.indexOf('"')).replaceAll("\"", "");
+	      }
+	  }
+	  return fileName;
+	}
+  
   public void save(Part in, File out) throws IOException {
     BufferedInputStream br
       = new BufferedInputStream(in.getInputStream());
