@@ -327,7 +327,7 @@ public class DataBase {
 
 			ResultSet rs = stmt.executeQuery();
 
-
+			rs.next();
 			subjectName = rs.getString(1);
 
 		} catch (Exception e) {
@@ -607,16 +607,22 @@ public class DataBase {
 	public String getTestPoint() {
 		String data = "";
         StringBuffer buf = new StringBuffer();
-		try {
-			String sql = "SELECT * FROM results WHERE test_id = 001";
+        try {
+		String sql = "SELECT user_name,point FROM results INNER JOIN accounts ON (results.user_id = accounts.user_id) WHERE test_id = 1";
+		//String sql = "SELECT test_name,accounts.user_name,point FROM results INNER JOIN (accounts INNER JOIN tests ON (accounts.test_id = tests.test_id)) ON (results.user_id = accounts.user_id) WHERE test_id = 1";
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+		PreparedStatement stmt = con.prepareStatement(sql);
 
-			ResultSet rs = stmt.executeQuery();
+		ResultSet rs = stmt.executeQuery();
 
-			while(rs.next()) {
-				buf.append(rs.getString(3));
-			}
+		while(rs.next()) {
+			buf.append(rs.getString(1)+"の");
+			buf.append(rs.getString(2));
+			buf.append("さんの点数は");
+			buf.append(rs.getString(2));
+			buf.append("点");
+
+		}
 
             data = buf.toString();
 

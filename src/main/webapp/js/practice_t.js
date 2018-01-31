@@ -16,26 +16,26 @@ xhr.send();
 
 function makeSectionList(data) {
     var sectionList = document.getElementById('section-list');
-    for (var subject of data) {
+    data.forEach(function(subject) {
         var DOMSubject = document.createElement('li');
         var DOMChapterList = document.createElement('ol');
         DOMSubject.textContent = subject.subject_name;
-        for (var chapter of subject.chapters || []) {
+        (subject.chapters || []).forEach(function(chapter) {
             var DOMChapter = document.createElement('li');
             var DOMSectionList = document.createElement('ol');
             DOMChapter.textContent = chapter.chapter_name;
-            for (var section of chapter.sections || []) {
+            (chapter.sections || []).forEach(function(section) {
                 var DOMSection = document.createElement('li');
                 DOMSection.textContent = section.section_name;
                 DOMSection.addEventListener('click', getPractices.bind(DOMSection, section.section_id));
                 DOMSectionList.appendChild(DOMSection);
-            }
+            });
             DOMChapter.appendChild(DOMSectionList);
             DOMChapterList.appendChild(DOMChapter);
-        }
+        });
         DOMSubject.appendChild(DOMChapterList);
         sectionList.appendChild(DOMSubject);
-    }
+    });
 }
 
 function makePracticeList(data) {
@@ -112,6 +112,7 @@ function getPractices(section_id) {
     };
     xhr.open('GET', 'api/practices?section-id=' + section_id);
     xhr.send();
+    document.getElementById('section-title').textContent = this.textContent;
 }
 
 function submitPractice(section_id) {
