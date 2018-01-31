@@ -121,8 +121,8 @@ public class DataBase {
 			statement.addBatch("INSERT INTO accounts VALUES ('1674401','ssap','大原 花子',false,'',)");
 			statement.addBatch("INSERT INTO accounts VALUES ('teacher','teacher','大原 教師郎',true,'',)");
 
-			statement.addBatch("INSERT INTO subjects VALUES (1,'Java')");
-			statement.addBatch("INSERT INTO subjects VALUES (2,'C言語')");
+			statement.addBatch("INSERT INTO subjects VALUES (default,'Java')");
+			statement.addBatch("INSERT INTO subjects VALUES (default,'C言語')");
 
 			statement.addBatch("INSERT INTO lessons VALUES (default,01,1,to_date('2017/04/05','YYYY/MM/DD'))");
 			statement.addBatch("INSERT INTO lessons VALUES (default,01,2,to_date('2017/04/07','YYYY/MM/DD'))");
@@ -754,7 +754,7 @@ public class DataBase {
 		String data = "";
         StringBuffer buf = new StringBuffer();
         try {
-		String sql = "SELECT subject_id,subject_name FROM subject";
+		String sql = "SELECT subject_id,subject_name FROM subjects";
 
 		PreparedStatement stmt = con.prepareStatement(sql);
 

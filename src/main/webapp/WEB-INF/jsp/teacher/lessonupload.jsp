@@ -24,6 +24,8 @@
 		%>
 
 		<form method="POST" enctype="multipart/form-data" action="fileupload">
+			<input type="hidden" name="flg" value="1">
+			<input type="text" name="lessonId">
   			<p><input type="file" name="file"><input type="submit" value="設定"></p>
 		</form>
 
