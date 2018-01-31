@@ -513,6 +513,77 @@ public class DataBase {
 		return true;
 	}
 
+	public ResultSet getTests() {
+		ResultSet rs = null;
+		try {
+			Statement stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM tests");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return rs;
+	}
+
+	public Boolean addTest(int subjectId, String testName, String testDate) {
+		try {
+			String sql = "INSERT INTO tests VALUES (default,?,to_date(?,'YYYY-MM-DD'),false,false,?)";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, testName);
+			stmt.setString(2, testDate);
+			stmt.setInt(3, subjectId);
+			stmt.executeUpdate();
+			System.out.println("テスト：" + testName + "を追加した");
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+		return true;
+	}
+
+	public Boolean deleteTest(int testId) {
+		try {
+			String sql = "DELETE FROM tests WHERE test_id = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, testId);
+			stmt.executeUpdate();
+			System.out.println("テスト：" + testId + "を削除した");
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+		return true;
+	}
+
+	public Boolean setTestPublic(int testId, Boolean publicFlg) {
+		try {
+			String sql = "UPDATE tests SET public_flg = ? WHERE test_id = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setBoolean(1, publicFlg);
+			stmt.setInt(2, testId);
+			stmt.executeUpdate();
+			System.out.println("テスト：" + testId + "の公開フラグを" + publicFlg + "にした");
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+		return true;
+	}
+
+	public Boolean setTestEnd(int testId, Boolean endFlg) {
+		try {
+			String sql = "UPDATE tests SET end_flg = ? WHERE test_id = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setBoolean(1, endFlg);
+			stmt.setInt(2, testId);
+			stmt.executeUpdate();
+			System.out.println("テスト：" + testId + "の終了フラグを" + endFlg + "にした");
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+		return true;
+	}
+
 	public ResultSet getUserResults(String userId) {
 		ResultSet rs = null;
 		try {
