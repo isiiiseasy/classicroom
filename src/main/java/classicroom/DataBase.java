@@ -54,7 +54,7 @@ public class DataBase {
 			stmt = con.prepareStatement(sql);
 			stmt.executeUpdate();
 
-			sql = "CREATE TABLE lessons(lesson_id INT auto_increment,subject_id INT NOT NULL,times INT NOT NULL,lesson_date DATE NOT NULL,PRIMARY KEY(lesson_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
+			sql = "CREATE TABLE lessons(lesson_id INT auto_increment,subject_id INT NOT NULL,lesson_name VARCHAR(255) NOT NULL,PRIMARY KEY(lesson_id),FOREIGN KEY (subject_id)REFERENCES subjects(subject_id))";
 
 			stmt = con.prepareStatement(sql);
 			stmt.executeUpdate();
@@ -124,9 +124,9 @@ public class DataBase {
 			statement.addBatch("INSERT INTO subjects VALUES (default,'Java')");
 			statement.addBatch("INSERT INTO subjects VALUES (default,'C言語')");
 
-			statement.addBatch("INSERT INTO lessons VALUES (default,01,1,to_date('2017/04/05','YYYY/MM/DD'))");
-			statement.addBatch("INSERT INTO lessons VALUES (default,01,2,to_date('2017/04/07','YYYY/MM/DD'))");
-			statement.addBatch("INSERT INTO lessons VALUES (default,02,1,to_date('2017/04/12','YYYY/MM/DD'))");
+			statement.addBatch("INSERT INTO lessons VALUES (default,01,'Javaいっかいめ')");
+			statement.addBatch("INSERT INTO lessons VALUES (default,01,'Javaにかいめ')");
+			statement.addBatch("INSERT INTO lessons VALUES (default,02,'Cいっかいめ')");
 
 			statement.addBatch(
 					"INSERT INTO tests VALUES (default,'第1回Java効果測定',to_date('2017/04/20','YYYY/MM/DD'),true,01)");
@@ -639,7 +639,7 @@ public class DataBase {
 		List<String> list = new ArrayList<String>();
 		DataBase db = new DataBase();
 		try {
-			String sql = "SELECT * FROM attendances ORDER BY lesson_Id DESC";
+			String sql = "SELECT * FROM attendances ORDER BY lesson_id DESC";
 
 			PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -763,8 +763,9 @@ public class DataBase {
 
 		while(rs.next()) {
 			buf.append(rs.getString(1));
+			buf.append(":");
 			buf.append(rs.getString(2));
-
+			buf.append("<br>");
 		}
 
             data = buf.toString();
@@ -774,6 +775,51 @@ public class DataBase {
 		}
 
 		return data;
+	}
+
+	public String getLessonName() {
+		String data = "";
+        StringBuffer buf = new StringBuffer();
+        try {
+		String sql = "SELECT lesson_id,lesson_name FROM lessons ORDER BY lesson_id DESC";
+
+		PreparedStatement stmt = con.prepareStatement(sql);
+
+		ResultSet rs = stmt.executeQuery();
+
+		while(rs.next()) {
+			buf.append(rs.getInt(1));
+			buf.append(":");
+			buf.append(rs.getString(2));
+			buf.append("<br>");
+		}
+
+            data = buf.toString();
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return data;
+	}
+
+	public boolean setLesson(String subjectId,String lessonName) {
+		boolean flg = false;
+
+		try {
+			String sql = "INSERT INTO lessons VALUES (default,?,?)";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1,Integer.parseInt(subjectId));
+			stmt.setString(2,lessonName);
+
+			stmt.executeUpdate();
+
+			flg = true;
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return flg;
 	}
 }
 
