@@ -19,7 +19,7 @@ function makeSectionList(data) {
     Array.prototype.slice.call(sectionList.children).forEach(function(child) {
         child.parentNode.removeChild(child);
     });
-    for (var subject of data) {
+    data.forEach(function(subject) {
         var DOMSubject = document.createElement('li');
         var DOMChapterList = document.createElement('ol');
         DOMSubject.textContent = subject.subject_name;
@@ -31,7 +31,7 @@ function makeSectionList(data) {
         DOMSubjectDelete.textContent = ' [削除]';
         DOMSubjectDelete.addEventListener('click', deleteSubject.bind(null, subject.subject_id));
         DOMSubject.appendChild(DOMSubjectDelete);
-        for (var chapter of subject.chapters || []) {
+        (subject.chapters || []).forEach(function(chapter) {
             var DOMChapter = document.createElement('li');
             var DOMSectionList = document.createElement('ol');
             DOMChapter.textContent = chapter.chapter_name;
@@ -43,7 +43,7 @@ function makeSectionList(data) {
             DOMChapterDelete.textContent = ' [削除]';
             DOMChapterDelete.addEventListener('click', deleteChapter.bind(null, chapter.chapter_id));
             DOMChapter.appendChild(DOMChapterDelete);
-            for (var section of chapter.sections || []) {
+            (chapter.sections || []).forEach(function(section) {
                 var DOMSection = document.createElement('li');
                 DOMSection.textContent = section.section_name;
                 var DOMSectionEdit = document.createElement('a');
@@ -55,21 +55,21 @@ function makeSectionList(data) {
                 DOMSectionDelete.addEventListener('click', deleteSection.bind(null, section.section_id));
                 DOMSection.appendChild(DOMSectionDelete);
                 DOMSectionList.appendChild(DOMSection);
-            }
+            });
             var DOMSectionAdd = document.createElement('li');
             DOMSectionAdd.textContent = '項目を追加';
             DOMSectionAdd.addEventListener('click', addSection.bind(null, chapter.chapter_id));
             DOMSectionList.appendChild(DOMSectionAdd);
             DOMChapter.appendChild(DOMSectionList);
             DOMChapterList.appendChild(DOMChapter);
-        }
+        });
         var DOMChapterAdd = document.createElement('li');
         DOMChapterAdd.textContent = '章を追加';
         DOMChapterAdd.addEventListener('click', addChapter.bind(null, subject.subject_id));
         DOMChapterList.appendChild(DOMChapterAdd);
         DOMSubject.appendChild(DOMChapterList);
         sectionList.appendChild(DOMSubject);
-    }
+    });
     var DOMSubjectAdd = document.createElement('li');
     DOMSubjectAdd.textContent = '教科を追加';
     DOMSubjectAdd.addEventListener('click', addSubject);
