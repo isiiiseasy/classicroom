@@ -57,6 +57,13 @@ function makeTestList(data) {
         DOMTestDelete.textContent = ' [削除]';
         DOMTestDelete.addEventListener('click', deleteTest.bind(null, test.test_id));
         DOMTest.appendChild(DOMTestDelete);
+        if (!test.public_flg) {
+            var DOMTestPublish = document.createElement('a');
+            DOMTestPublish.textContent = ' [公開する]';
+            DOMTestPublish.addEventListener('click', publishTest.bind(null, test.test_id));
+            DOMTest.appendChild(DOMTestPublish);
+        }
+
 
         DOMInnerList.appendChild(DOMTest);
     });
@@ -75,6 +82,14 @@ function addTest(subjectId) {
 function deleteTest(testId) {
     if (window.confirm('本当によろしいですか？')) {
         requestTestAPI('DELETE', '&test-id=' + encodeURIComponent(testId));
+    } else {
+        window.alert('キャンセルされました');
+    }
+}
+
+function publishTest(testId) {
+    if (window.confirm('テストを公開しますか？')) {
+        requestTestAPI('PUT', '&test-id=' + encodeURIComponent(testId) + '&public-flg=true');
     } else {
         window.alert('キャンセルされました');
     }
