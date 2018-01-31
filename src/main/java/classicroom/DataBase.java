@@ -661,7 +661,7 @@ public class DataBase {
 		boolean flg = false;
 
 		try {
-			if(kubun != 4) {
+			if(kubun < 3) {
 				String sql = "UPDATE attendances SET attendance_situation = ?,note = ? WHERE lesson_id = ? AND user_id = ?";
 
 				PreparedStatement stmt = con.prepareStatement(sql);
@@ -673,7 +673,7 @@ public class DataBase {
 				stmt.executeUpdate();
 
 				flg = true;
-			}else {
+			}else if(kubun == 4){
 				String sql = "DELETE FROM attendances WHERE lesson_id = ? AND user_id = ?";
 
 				PreparedStatement stmt = con.prepareStatement(sql);
@@ -683,12 +683,63 @@ public class DataBase {
 				stmt.executeUpdate();
 
 				flg = true;
+			}else if(kubun == 3){
+				String sql = "INSERT INTO attendances VALUES (?,?,?,?)";
+
+				PreparedStatement stmt = con.prepareStatement(sql);
+				stmt.setInt(1,lessonId);
+				stmt.setString(2,userId);
+				stmt.setInt(3,kubun);
+				stmt.setString(4,biko);
+
+				stmt.executeUpdate();
+
+				flg = true;
 			}
 		}catch(Exception e) {
 			System.out.println(e);
 		}
 		return flg;
+	}
 
+	public int[] AttendanceSituationCount(String userId) {
+		int AttendanceSituation[] = new int[3];
+		try {
+				String sql = "SELECT COUNT(*) FROM attendances WHERE user_id = ? AND attendance_situation = 1";
+
+				PreparedStatement stmt = con.prepareStatement(sql);
+				stmt.setString(1, userId);
+
+				ResultSet rs = stmt.executeQuery();
+				rs.next();
+
+				AttendanceSituation[0] = rs.getInt(1);
+
+				sql = "SELECT COUNT(*) FROM attendances WHERE user_id = ? AND attendance_situation = 2";
+
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, userId);
+
+				rs = stmt.executeQuery();
+				rs.next();
+
+				AttendanceSituation[1] = rs.getInt(1);
+
+				sql = "SELECT COUNT(*) FROM attendances WHERE user_id = ? AND attendance_situation = 3" ;
+
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, userId);
+
+				rs = stmt.executeQuery();
+				rs.next();
+
+				AttendanceSituation[2] = rs.getInt(1);
+
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+		return AttendanceSituation;
 	}
 }
 

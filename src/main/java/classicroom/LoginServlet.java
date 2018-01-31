@@ -26,6 +26,8 @@ public class LoginServlet extends HttpServlet {
 
 		ServletContext attendances = this.getServletContext();
 		attendances.setAttribute(userId,"in");
+		
+		
 
 		if (userId == null || userId.equals("") || password == null || password.equals("")) {
 			request.setAttribute("warning", "ユーザーIDとパスワードを入力してください");

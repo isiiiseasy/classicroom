@@ -17,6 +17,7 @@ public class MyPageServlet extends HttpServlet {
 		DataBase db = new DataBase();
 
 		HttpSession session = request.getSession(false);
+		String userId = (String) request.getSession(false).getAttribute("userId");
 
 		String imgFileName = db.getImgFileName((String)session.getAttribute("userId"));
 
@@ -24,6 +25,14 @@ public class MyPageServlet extends HttpServlet {
 
 		Object userRank = request.getSession(false).getAttribute("userRank");
 		if (userRank.equals("student")) {
+
+			int AttendanceSituation[] = new int[3];
+			AttendanceSituation = db.AttendanceSituationCount(userId);
+
+			request.setAttribute("kesseki",AttendanceSituation[0]);
+			request.setAttribute("tikoku",AttendanceSituation[1]);
+			request.setAttribute("soutai",AttendanceSituation[2]);
+
 			request.getRequestDispatcher("/WEB-INF/jsp/student/mypage.jsp").forward(request, response);
 		} else if (userRank.equals("teacher")) {
 			request.getRequestDispatcher("/WEB-INF/jsp/teacher/mypage.jsp").forward(request, response);

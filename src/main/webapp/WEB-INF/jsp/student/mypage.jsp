@@ -23,8 +23,25 @@
       </a><br>
       <a class="normal_link">name : ${ userName }</a><br><br>
       設定<br>
-      <a class="normal_link" href="<%=request.getContextPath() %>/image">アイコン画像変更</a>
+      <a class="normal_link" href="<%=request.getContextPath() %>/image">アイコン画像変更</a><br><br>
+
+      <table style="background-color:white;border: 2 black;width: 100%;">
+
+      	<caption style="font-size:4;font-weight: bold;">出欠状況</caption>
+
+      	<tr>
+	      <th><p style="color:black;">欠席</p></th>
+	      <th><p style="color:black;">遅刻</p></th>
+	      <th><p style="color:black;">早退</p></th>
+	     </tr>
+	     <tr>
+	      <td><p style="color:red;font-size:5;font-weight: bold;">${ kesseki }</p><p style="color:black;">回</p></td>
+	      <td><p style="color:red;font-size:5;font-weight: bold;">${ tikoku }</p><p style="color:black;">回</p></td>
+	      <td><p style="color:red;font-size:5;font-weight: bold;">${ soutai }</p><p style="color:black;">回</p></td>
+      	</tr>
+      </table>
     </div>
+
     <div id="R_box">
         <h1 id="midasi_1">ようこそ、${ userName } さん</h1>
         <div id="graph-tab" class="tab"></div>
