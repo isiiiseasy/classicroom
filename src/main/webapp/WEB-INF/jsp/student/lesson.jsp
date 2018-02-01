@@ -17,7 +17,7 @@
     <div id="L_box">
     </div>
     <div id="R_box">
-    	<a href="<%=request.getContextPath() %>/lesson">第1回</a>
+
     		<div>
 
 				<%--
@@ -31,42 +31,51 @@
 				--%>
 				<%--
 
-					String template = "data/lessonfile/";
-					StringBuffer buf = new StringBuffer();
-					buf.append(template);
-            		buf.append(request.getAttribute("folda"));
-            		buf.append("/");
-            		buf.append(request.getAttribute("filename"));
-					String text = buf.toString();
-
 					BufferedReader bufFileData = new BufferedReader(new InputStreamReader(new FileInputStream(text),"UTF-8"));
 			  		while(bufFileData.ready()){
 			    	out.println(bufFileData.readLine() + "<BR>");
 			  		}
 			  		bufFileData.close();
 				--%>
-				 <table border="1">
+
+
+
+				 <%--
+				 StringBuffer buf = new StringBuffer;
+				 buf.append("./lesson"+"/");
+				 buf.append(aryFls[0].getName());
+				 String url = buf.toString();
+
+				 File objFld2=new File(application.getRealPath(url));
+				 File[] aryFls2=objFld2.listFiles();
+				 for(int i=0;i<aryFls2.length;i++){}
+				 --%>
+				 				 <table border="1">
 				 <tr>
-				   <th>ファイル名</th><th>サイズ（キロバイト）</th>
+				   <th>ファイル名</th>
 				 </tr>
 				 <%
-				 File objFld=new File(application.getRealPath("."));
+				 File objFld=new File(application.getRealPath("./lessonfile"));
 				 File[] aryFls=objFld.listFiles();
 				 for(int i=0;i<aryFls.length;i++){
 				 %>
 				   <tr>
-				   <td><%=aryFls[i].getName()%></td>
-				   <td align="right">
-				   <%
-				   if(aryFls[i].isDirectory()){
-				     out.print("<br />");
-				   }else{
-				     out.print(Math.ceil(aryFls[i].length()/1024+1) + "KB");
-				   }
-				   %>
+				   <td>
+					<%=aryFls[i].getName()%>
+
 				   </td>
 				   </tr>
-				 <% } %>
+				 <% }
+				 %>
+				 <%
+				    BufferedReader bufFileData = new BufferedReader(new InputStreamReader(new FileInputStream(aryFls[0]),"UTF-8"));
+			  		while(bufFileData.ready()){
+			    	out.println(bufFileData.readLine() + "<BR>");
+			  		}
+			  		bufFileData.close();
+
+				   %>
+
 				 </table>
 			</div>
     </div>

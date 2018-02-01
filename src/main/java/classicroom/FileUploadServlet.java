@@ -54,12 +54,12 @@ public class FileUploadServlet extends HttpServlet {
 	    String lessonId = request.getParameter("lessonId");
 
 	    try {
-            Files.createDirectories(Paths.get((this.getServletContext().getRealPath("/lesson/")+lessonId)));
+            Files.createDirectories(Paths.get((this.getServletContext().getRealPath("/lessonfile")+"/"+lessonId)));
         } catch (IOException e) {
             System.out.println(e);
         }
 
-		File lessonfile = new File(this.getServletContext().getRealPath("/lesson/")+lessonId);
+		File lessonfile = new File(this.getServletContext().getRealPath("/lessonfile")+"/"+lessonId);
 
 	    save(filePart, new File(lessonfile, fileName));
 
