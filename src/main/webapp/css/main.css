@@ -1,5 +1,5 @@
 html, body {
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
@@ -50,12 +50,19 @@ a.normal_link{
 #L_box {
     /*ページ左側青色部分のスタイルです*/
     float: left;
-    background-color: #0066FF;
-    width: 270px;
+    background: #0066FF;
+    background: -moz-linear-gradient(left, #3e3ff6, #0066FF);
+    background: -webkit-linear-gradient(left, #3e3ff6, #0066FF);
+    background: linear-gradient(to right, #3e3ff6, #0066FF);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.56);    width: 270px;
     height: 100%;
     color: white;
     text-align: center;
     font-family: Yu Gothic;
+}
+
+#L_box ol,ul{
+    text-align: left;
 }
 
 #R_box {
@@ -163,5 +170,3 @@ div.outputchat{
 	min-height: 5em;
 	float:left;
 }
-
-
