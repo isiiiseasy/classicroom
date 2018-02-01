@@ -46,7 +46,7 @@ function getTestData() {
 
 function makeTestList(data) {
     data.forEach(function(test) {
-        var DOMInnerList = document.getElementById('test-list-' + test.subject_id) ;
+        var DOMInnerList = document.getElementById('test-list-' + test.subject_id);
         var DOMTest = document.createElement('li');
         DOMTest.addEventListener('click', getQuestions.bind(DOMTest, test.test_id));
         DOMTest.textContent = test.test_name;
@@ -107,9 +107,31 @@ function getQuestions(test_id) {
 }
 
 function submitAnswer(test_id) {
-// 鯖側ができてから書く
+    var questionCount = 0,
+        correctCount = 0,
+        point = 0;
+    var answers = Array.prototype.slice.call(document.getElementsByClassName('answer'));
+    answers.forEach(function(a) {
+        if (a.__correct__) {
+            if (a.checked) {
+                correctCount++;
+            }
+            questionCount++;
+        }
+    });
+    point = Math.floor(100*correctCount/questionCount);
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            window.alert('お疲れ様ですた。');
+            window.location.href = './mypage';
+        }
+    };
+    xhr.open('POST', 'api/testsubmit?test-id=' + test_id + '&point=' + point);
+    xhr.send();
+
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-});
+document.addEventListener('DOMContentLoaded', function() {});
