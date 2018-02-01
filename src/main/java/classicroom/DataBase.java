@@ -584,6 +584,22 @@ public class DataBase {
 		return true;
 	}
 
+	public Boolean addResult(int testId, String userId, int point) {
+		try {
+			String sql = "INSERT INTO results VALUES (?,?,?)";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, testId);
+			stmt.setString(2, userId);
+			stmt.setInt(3, point);
+			stmt.executeUpdate();
+			System.out.println("user_id：" + userId + "が、テスト：" + testId + "で" + point + "点をとった");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
 	public ResultSet getUserResults(String userId) {
 		ResultSet rs = null;
 		try {
